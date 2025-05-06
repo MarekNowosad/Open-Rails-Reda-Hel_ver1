@@ -1,0 +1,4631 @@
+//paŸdziernik 2009, skrypt dostosowany do pakietu semaforów PLK
+//poprawka semaforów ksztaltowych, lipiec 2013 - ruter (raster)
+
+SCRIPT Ms_kszt
+
+	//extern float	block_state ();
+	//extern float	route_set ();
+	//extern float	next_sig_lr ();
+	extern float	def_draw_state ();
+	//extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	extern float	enabled;
+	//float			next_state;
+
+
+if ( !enabled ) 
+	{ state = SIGASP_STOP; }
+else
+	{ state = SIGASP_RESTRICTING; }
+
+draw_state = def_draw_state ( state );
+
+SCRIPT TO_kszt_3-stawna (G)
+
+	//extern float	block_state ();
+	//extern float	route_set ();
+	extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	//extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	//extern float	enabled;
+	//float			next_state;
+
+
+if ( next_sig_mr( SIGFN_NORMAL ) ==# SIGASP_CLEAR_2 ) 	
+
+	{ state = SIGASP_CLEAR_2; }
+else
+	{ state = SIGASP_APPROACH_1; }
+
+draw_state = def_draw_state ( state );
+
+SCRIPT TO_kszt_3-stawna (D)
+
+	//extern float	block_state ();
+	//extern float	route_set ();
+	extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	//extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	//extern float	enabled;
+	//float			next_state;
+
+
+if ( next_sig_mr( SIGFN_NORMAL ) ==# SIGASP_APPROACH_1 ) 	
+
+	{ state = SIGASP_APPROACH_2; }
+else
+	{ state = SIGASP_CLEAR_2; }
+
+draw_state = def_draw_state ( state );
+
+SCRIPT TO_kszt_2-stawna
+
+	//extern float	block_state ();
+	//extern float	route_set ();
+	extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	//extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	//extern float	enabled;
+	float			next_state;
+
+next_state = next_sig_mr ( SIGFN_NORMAL );
+if ( 	next_state ==# SIGASP_STOP ||
+	next_state ==# SIGASP_STOP_AND_PROCEED ) 	
+	{ state = SIGASP_APPROACH_1; }
+else
+	{ state = SIGASP_CLEAR_2; }
+
+draw_state = def_draw_state ( state );
+
+SCRIPT PLK_Kszt_sem1
+
+
+	extern float	block_state ();
+	//extern float	route_set ();
+	extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	//extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	extern float	enabled;
+	//float			next_state;
+	//float			czy_na_bok;
+
+
+if (  !enabled ||				   			
+	block_state() ==# BLOCK_OCCUPIED || 				
+	next_sig_mr( SIGFN_NORMAL ) ==# SIGASP_CLEAR_1 ) 	
+
+	{ state = SIGASP_STOP; }
+else
+	{ state = SIGASP_CLEAR_2; }
+
+draw_state = def_draw_state ( state );
+
+
+SCRIPT PLK_Kszt_sem2_1
+
+	//extern float	block_state ();
+	//extern float	route_set ();
+	//extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	//extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	//extern float	enabled;
+	extern float	this_sig_mr ();
+	float			this_state;
+	//float			next_state;
+
+this_state = this_sig_mr ( SIGFN_NORMAL );
+if ( this_state ==# SIGASP_STOP || this_state ==# SIGASP_STOP_AND_PROCEED 
+	|| this_state ==# SIGASP_RESTRICTING )
+	{ state = SIGASP_STOP; }
+else
+	{
+	state = SIGASP_CLEAR_2;
+	}
+
+draw_state = def_draw_state (state);
+
+SCRIPT PLK_Kszt_sem1_Ms2
+
+extern float	block_state ();
+	//extern float	route_set ();
+	extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	//extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	extern float	enabled;
+	//float			next_state;
+	//float			czy_na_bok;
+
+
+if (  !enabled ||				   			
+	block_state() ==# BLOCK_OCCUPIED || 				
+	next_sig_mr( SIGFN_NORMAL ) ==# SIGASP_CLEAR_1 ) 
+	{ state = SIGASP_STOP; }
+else
+	{ state = SIGASP_CLEAR_2; }
+
+draw_state = def_draw_state ( state );
+
+SCRIPT PLK_Kszt_sem2_1
+
+	//extern float	block_state ();
+	//extern float	route_set ();
+	//extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	//extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	//extern float	enabled;
+	extern float	this_sig_mr ();
+	float			this_state;
+	//float			next_state;
+
+this_state = this_sig_mr ( SIGFN_NORMAL );
+if ( this_state ==# SIGASP_STOP || this_state ==# SIGASP_STOP_AND_PROCEED 
+	|| this_state ==# SIGASP_RESTRICTING )
+	{ state = SIGASP_STOP; }
+else
+	{
+	state = SIGASP_CLEAR_2;
+	}
+
+draw_state = def_draw_state (state);
+
+SCRIPT PLK_Kszt_sem2_2
+
+	extern float	block_state ();
+	extern float	route_set ();
+	extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	extern float	enabled;
+	//float			next_state;
+	//float			czy_na_bok;
+
+	if ( !enabled ||
+		block_state() ==# BLOCK_OCCUPIED ||
+		next_sig_mr (SIGFN_NORMAL ) ==# SIGASP_CLEAR_1 ) 
+		{ state = SIGASP_STOP; }
+	else
+		{
+		if ( 
+			(!route_set() ) 
+			|| ( !sig_feature( SIGFEAT_USER1 ) ) 
+		   )
+			{ state = SIGASP_APPROACH_1; }
+		else
+			{ state = SIGASP_CLEAR_2; }
+		}
+	
+draw_state = def_draw_state ( state );
+
+
+SCRIPT PLK_Kszt_sem2_2_b/Sz
+
+	extern float	block_state ();
+	extern float	route_set ();
+	extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	extern float	enabled;
+	//float			next_state;
+	//float			czy_na_bok;
+
+	if ( !enabled ||
+		block_state() ==# BLOCK_OCCUPIED ||
+		next_sig_mr (SIGFN_NORMAL ) ==# SIGASP_CLEAR_1 ) 
+		{ state = SIGASP_STOP; }
+	else
+		{
+		if ( 
+			(!route_set() ) 
+			|| ( !sig_feature( SIGFEAT_USER1 ) ) 
+		   )
+			{ state = SIGASP_APPROACH_1; }
+		else
+			{ state = SIGASP_CLEAR_2; }
+		}
+	
+draw_state = def_draw_state ( state );
+
+SCRIPT RESET
+
+	extern float	block_state ();
+	//extern float	route_set ();
+	extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	extern float	enabled;
+	float			next_state;
+
+
+if ( !enabled || block_state() ==# BLOCK_OCCUPIED ) 
+	{ state = SIGASP_CLEAR_1; }
+else
+	{	
+		if ( sig_feature ( SIGFEAT_USER1 ) )
+			{ 
+			next_state = next_sig_mr ( SIGFN_NORMAL ); 
+			if ( next_state ==# SIGASP_STOP ) 
+				{ state = SIGASP_STOP_AND_PROCEED; }
+			else
+				{ state = next_state; }
+			}
+		else
+			{ state = SIGASP_CLEAR_2; }
+	}
+
+draw_state = def_draw_state ( state );
+
+SCRIPT PLK_Ms
+
+	//extern float	block_state ();
+	//extern float	route_set ();
+	//extern float	next_sig_lr ();
+	extern float	def_draw_state ();
+	//extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	extern float	enabled;
+	//float			next_state;
+
+
+if ( !enabled ) 
+	{ state = SIGASP_STOP; }
+else
+	{ state = SIGASP_RESTRICTING; }
+
+draw_state = def_draw_state ( state );
+
+SCRIPT PLK_Ms_p
+
+	//extern float	block_state ();
+	//extern float	route_set ();
+	//extern float	next_sig_lr ();
+	extern float	def_draw_state ();
+	//extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	extern float	enabled;
+	//float			next_state;
+
+if ( !enabled ) 
+	{ state = SIGASP_STOP; }
+else
+	{ state = SIGASP_RESTRICTING; }
+
+draw_state = def_draw_state ( state );
+
+SCRIPT PLK_Ms_l
+
+	//extern float	block_state ();
+	//extern float	route_set ();
+	//extern float	next_sig_lr ();
+	extern float	def_draw_state ();
+	//extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	extern float	enabled;
+	//float			next_state;
+	//float			czy_na_bok;
+
+
+if ( !enabled ) 
+	{ state = SIGASP_STOP; }
+else
+	{ state = SIGASP_RESTRICTING; }
+
+draw_state = def_draw_state ( state );
+
+SCRIPT PLK_Ms_karz
+
+	//extern float	block_state ();
+	//extern float	route_set ();
+	//extern float	next_sig_lr ();
+	extern float	def_draw_state ();
+	//extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	extern float	enabled;
+	//float			next_state;
+
+
+if ( !enabled ) 
+	{ state = SIGASP_STOP; }
+else
+	{ state = SIGASP_RESTRICTING; }
+
+draw_state = def_draw_state ( state );
+
+SCRIPT PLK_Sp
+
+	//extern float	block_state ();
+	//extern float	route_set ();
+	extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	//extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	//extern float	enabled;
+	//extern float	this_sig_mr ();
+	float			next_state;
+	//float			next_state_dist;
+	//float			this_signal;
+
+next_state = next_sig_mr ( SIGFN_NORMAL );
+if ( next_state ==# SIGASP_STOP || next_state ==# SIGASP_STOP_AND_PROCEED )
+	{ state = SIGASP_APPROACH_1; }
+else
+	{
+		if ( next_state ==# SIGASP_APPROACH_1 )
+			{ state = SIGASP_APPROACH_2; }
+		else 
+			{
+			if (next_state ==# SIGASP_APPROACH_2 )
+				{state = SIGASP_APPROACH_3;}
+			else 
+				{state = SIGASP_CLEAR_2;}
+			}
+	}
+
+draw_state = def_draw_state (state);
+
+SCRIPT PLK_Sp_p
+
+	//extern float	block_state ();
+	//extern float	route_set ();
+	extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	//extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	//extern float	enabled;
+	//extern float	this_sig_mr ();
+	float			next_state;
+	//float			next_state_dist;
+	//float			this_signal;
+
+next_state = next_sig_mr ( SIGFN_NORMAL );
+if ( next_state ==# SIGASP_STOP || next_state ==# SIGASP_STOP_AND_PROCEED )
+	{ state = SIGASP_APPROACH_1; }
+else
+	{
+		if ( next_state ==# SIGASP_APPROACH_1 )
+			{ state = SIGASP_APPROACH_2; }
+		else 
+			{
+			if (next_state ==# SIGASP_APPROACH_2 )
+				{state = SIGASP_APPROACH_3;}
+			else 
+				{state = SIGASP_CLEAR_2;}
+			}
+	}
+
+draw_state = def_draw_state (state);
+
+SCRIPT PLK_Sp_l
+
+	//extern float	block_state ();
+	//extern float	route_set ();
+	extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	//extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	//extern float	enabled;
+	//extern float	this_sig_mr ();
+	float			next_state;
+	//float			next_state_dist;
+	//float			this_signal;
+
+next_state = next_sig_mr ( SIGFN_NORMAL );
+if ( next_state ==# SIGASP_STOP || next_state ==# SIGASP_STOP_AND_PROCEED )
+	{ state = SIGASP_APPROACH_1; }
+else
+	{
+		if ( next_state ==# SIGASP_APPROACH_1 )
+			{ state = SIGASP_APPROACH_2; }
+		else 
+			{
+			if (next_state ==# SIGASP_APPROACH_2 )
+				{state = SIGASP_APPROACH_3;}
+			else 
+				{state = SIGASP_CLEAR_2;}
+			}
+	}
+
+draw_state = def_draw_state (state);
+
+SCRIPT PLK_Sp_w
+
+	//extern float	block_state ();
+	//extern float	route_set ();
+	extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	//extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	//extern float	enabled;
+	//extern float	this_sig_mr ();
+	float			next_state;
+	//float			next_state_dist;
+	//float			this_signal;
+
+next_state = next_sig_mr ( SIGFN_NORMAL );
+if ( next_state ==# SIGASP_STOP || next_state ==# SIGASP_STOP_AND_PROCEED )
+	{ state = SIGASP_APPROACH_1; }
+else
+	{
+		if ( next_state ==# SIGASP_APPROACH_1 )
+			{ state = SIGASP_APPROACH_2; }
+		else 
+			{
+			if (next_state ==# SIGASP_APPROACH_2 )
+				{state = SIGASP_APPROACH_3;}
+			else 
+				{state = SIGASP_CLEAR_2;}
+			}
+	}
+
+draw_state = def_draw_state (state);
+
+SCRIPT PLK_Sp2
+
+	//extern float	block_state ();
+	//extern float	route_set ();
+	extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	//extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	//extern float	enabled;
+	//extern float	this_sig_mr ();
+	float			next_state;
+	//float			next_state_dist;
+	//float			this_signal;
+
+next_state = next_sig_mr ( SIGFN_NORMAL );
+if ( next_state ==# SIGASP_STOP || next_state ==# SIGASP_STOP_AND_PROCEED )
+	{ state = SIGASP_APPROACH_1; }
+else
+	{
+		if ( next_state ==# SIGASP_APPROACH_1 )
+			{ state = SIGASP_APPROACH_2; }
+	}
+
+draw_state = def_draw_state (state);
+
+SCRIPT PLK_Os
+
+	//extern float	block_state ();
+	//extern float	route_set ();
+	extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	//extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	//extern float	enabled;
+	//extern float	this_sig_mr ();
+	float			next_state;
+	//float			next_state_dist;
+	//float			this_signal;
+
+next_state = next_sig_mr ( SIGFN_NORMAL );
+if ( next_state ==# SIGASP_STOP || next_state ==# SIGASP_STOP_AND_PROCEED )
+	{ state = SIGASP_APPROACH_1; }
+else
+	{
+		if ( next_state ==# SIGASP_APPROACH_1 )
+			{ state = SIGASP_APPROACH_2; }
+		else 
+			{
+			if (next_state ==# SIGASP_APPROACH_2 )
+				{state = SIGASP_APPROACH_3;}
+			else 
+				{state = SIGASP_CLEAR_2;}
+			}
+	}
+
+draw_state = def_draw_state (state);
+
+SCRIPT PLK_Os_p
+
+	//extern float	block_state ();
+	//extern float	route_set ();
+	extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	//extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	//extern float	enabled;
+	//extern float	this_sig_mr ();
+	float			next_state;
+	//float			next_state_dist;
+	//float			this_signal;
+
+next_state = next_sig_mr ( SIGFN_NORMAL );
+if ( next_state ==# SIGASP_STOP || next_state ==# SIGASP_STOP_AND_PROCEED )
+	{ state = SIGASP_APPROACH_1; }
+else
+	{
+		if ( next_state ==# SIGASP_APPROACH_1 )
+			{ state = SIGASP_APPROACH_2; }
+		else 
+			{
+			if (next_state ==# SIGASP_APPROACH_2 )
+				{state = SIGASP_APPROACH_3;}
+			else 
+				{state = SIGASP_CLEAR_2;}
+			}
+	}
+
+draw_state = def_draw_state (state);
+
+SCRIPT PLK_Os_l
+
+	//extern float	block_state ();
+	//extern float	route_set ();
+	extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	//extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	//extern float	enabled;
+	//extern float	this_sig_mr ();
+	float			next_state;
+	//float			next_state_dist;
+	//float			this_signal;
+
+next_state = next_sig_mr ( SIGFN_NORMAL );
+if ( next_state ==# SIGASP_STOP || next_state ==# SIGASP_STOP_AND_PROCEED )
+	{ state = SIGASP_APPROACH_1; }
+else
+	{
+		if ( next_state ==# SIGASP_APPROACH_1 )
+			{ state = SIGASP_APPROACH_2; }
+		else 
+			{
+			if (next_state ==# SIGASP_APPROACH_2 )
+				{state = SIGASP_APPROACH_3;}
+			else 
+				{state = SIGASP_CLEAR_2;}
+			}
+	}
+
+draw_state = def_draw_state (state);
+
+SCRIPT PLK_Os_w
+
+	//extern float	block_state ();
+	//extern float	route_set ();
+	extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	//extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	//extern float	enabled;
+	//extern float	this_sig_mr ();
+	float			next_state;
+	//float			next_state_dist;
+	//float			this_signal;
+
+next_state = next_sig_mr ( SIGFN_NORMAL );
+if ( next_state ==# SIGASP_STOP || next_state ==# SIGASP_STOP_AND_PROCEED )
+	{ state = SIGASP_APPROACH_1; }
+else
+	{
+		if ( next_state ==# SIGASP_APPROACH_1 )
+			{ state = SIGASP_APPROACH_2; }
+		else 
+			{
+			if (next_state ==# SIGASP_APPROACH_2 )
+				{state = SIGASP_APPROACH_3;}
+			else 
+				{state = SIGASP_CLEAR_2;}
+			}
+	}
+
+draw_state = def_draw_state (state);
+
+SCRIPT PLK_Os1
+
+	//extern float	block_state ();
+	//extern float	route_set ();
+	extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	//extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	//extern float	enabled;
+	//extern float	this_sig_mr ();
+	float			next_state;
+	//float			next_state_dist;
+	//float			this_signal;
+
+next_state = next_sig_mr ( SIGFN_NORMAL );
+if ( next_state ==# SIGASP_STOP || next_state ==# SIGASP_STOP_AND_PROCEED )
+	{ state = SIGASP_APPROACH_1; }
+else
+	{
+	state = SIGASP_APPROACH_2;
+	}
+
+draw_state = def_draw_state (state);
+
+SCRIPT PLK_Os1_p
+
+	//extern float	block_state ();
+	//extern float	route_set ();
+	extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	//extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	//extern float	enabled;
+	//extern float	this_sig_mr ();
+	float			next_state;
+	//float			next_state_dist;
+	//float			this_signal;
+
+next_state = next_sig_mr ( SIGFN_NORMAL );
+if ( next_state ==# SIGASP_STOP || next_state ==# SIGASP_STOP_AND_PROCEED )
+	{ state = SIGASP_APPROACH_1; }
+else
+	{
+	state = SIGASP_APPROACH_2;
+	}
+
+draw_state = def_draw_state (state);
+
+SCRIPT PLK_Os1_l
+
+	//extern float	block_state ();
+	//extern float	route_set ();
+	extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	//extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	//extern float	enabled;
+	//extern float	this_sig_mr ();
+	float			next_state;
+	//float			next_state_dist;
+	//float			this_signal;
+
+next_state = next_sig_mr ( SIGFN_NORMAL );
+if ( next_state ==# SIGASP_STOP || next_state ==# SIGASP_STOP_AND_PROCEED )
+	{ state = SIGASP_APPROACH_1; }
+else
+	{
+	state = SIGASP_APPROACH_2;
+	}
+
+draw_state = def_draw_state (state);
+
+SCRIPT PLK_TOp_p20
+
+	//extern float	block_state ();
+	//extern float	route_set ();
+	//extern float	next_sig_lr ();
+	extern float	def_draw_state ();
+	//extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	extern float	enabled;
+	//float			next_state;
+
+
+	{ state = SIGASP_APPROACH_1; }
+
+draw_state = def_draw_state ( state );
+
+SCRIPT PLK_TOp_l20
+
+	//extern float	block_state ();
+	//extern float	route_set ();
+	//extern float	next_sig_lr ();
+	extern float	def_draw_state ();
+	//extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	extern float	enabled;
+	//float			next_state;
+
+
+	{ state = SIGASP_APPROACH_1; }
+
+draw_state = def_draw_state ( state );
+
+SCRIPT PLK_TOp_p
+
+	//extern float	block_state ();
+	//extern float	route_set ();
+	//extern float	next_sig_lr ();
+	extern float	def_draw_state ();
+	//extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	//extern float	enabled;
+	//float			next_state;
+
+
+state = SIGASP_CLEAR_2;
+
+draw_state = def_draw_state ( state );
+
+SCRIPT PLK_TOp_l
+
+	//extern float	block_state ();
+	//extern float	route_set ();
+	//extern float	next_sig_lr ();
+	extern float	def_draw_state ();
+	//extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	//extern float	enabled;
+	//float			next_state;
+
+
+state = SIGASP_CLEAR_2;
+
+draw_state = def_draw_state ( state );
+
+SCRIPT PLK_SBL3_2
+
+	extern float	block_state ();
+	//extern float	route_set ();
+	extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	extern float	enabled;
+	float			next_state;
+
+	
+	if ( block_state() ==# BLOCK_OCCUPIED) 
+		{ state = SIGASP_STOP; }
+	else
+		{
+		next_state = next_sig_mr ( SIGFN_NORMAL );
+		if ( next_state ==# SIGASP_STOP ||
+		     next_state ==# SIGASP_STOP_AND_PROCEED )
+				{ state = SIGASP_APPROACH_2; }
+		else
+			{
+			if ( sig_feature( SIGFEAT_USER1 ) && next_state ==# SIGASP_APPROACH_2 )
+				{ state = SIGASP_APPROACH_3;}
+			else
+				{ state = SIGASP_CLEAR_2; }
+			}
+		}
+	
+draw_state = def_draw_state ( state );
+if ( state ==# SIGASP_CLEAR_2 && (!enabled ) )
+	{draw_state = 1; } 
+
+SCRIPT PLK_SBL3_2_p
+
+	extern float	block_state ();
+	//extern float	route_set ();
+	extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	extern float	enabled;
+	float			next_state;
+
+	
+	if ( block_state() ==# BLOCK_OCCUPIED) 
+		{ state = SIGASP_STOP; }
+	else
+		{
+		next_state = next_sig_mr ( SIGFN_NORMAL );
+		if ( next_state ==# SIGASP_STOP ||
+		     next_state ==# SIGASP_STOP_AND_PROCEED )
+				{ state = SIGASP_APPROACH_2; }
+		else
+			{
+			if ( sig_feature( SIGFEAT_USER1 ) && next_state ==# SIGASP_APPROACH_2 )
+				{ state = SIGASP_APPROACH_3;}
+			else
+				{ state = SIGASP_CLEAR_2; }
+			}
+		}
+	
+draw_state = def_draw_state ( state );
+if ( state ==# SIGASP_CLEAR_2 && (!enabled ) )
+	{draw_state = 1; } 
+
+SCRIPT PLK_SBL3_2_l
+
+	extern float	block_state ();
+	//extern float	route_set ();
+	extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	extern float	enabled;
+	float			next_state;
+	
+	if ( block_state() ==# BLOCK_OCCUPIED) 
+		{ state = SIGASP_STOP; }
+	else
+		{
+		next_state = next_sig_mr ( SIGFN_NORMAL );
+		if ( next_state ==# SIGASP_STOP ||
+		     next_state ==# SIGASP_STOP_AND_PROCEED )
+				{ state = SIGASP_APPROACH_2; }
+		else
+			{
+			if ( sig_feature( SIGFEAT_USER1 ) && next_state ==# SIGASP_APPROACH_2 )
+				{ state = SIGASP_APPROACH_3;}
+			else
+				{ state = SIGASP_CLEAR_2; }
+			}
+		}
+	
+draw_state = def_draw_state ( state );
+if ( state ==# SIGASP_CLEAR_2 && (!enabled ) )
+	{draw_state = 1; } 
+
+SCRIPT PLK_SBL3_1
+
+	//extern float	block_state ();
+	//extern float	route_set ();
+	extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	//extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	//extern float	enabled;
+	extern float	this_sig_mr ();
+	float			this_state;
+	float			next_state;
+
+this_state = this_sig_mr ( SIGFN_NORMAL );
+if ( this_state ==# SIGASP_STOP || this_state ==# SIGASP_STOP_AND_PROCEED 
+	|| this_state ==# SIGASP_RESTRICTING )
+	{ state = SIGASP_STOP; }
+else
+	{
+	if ( this_state ==# SIGASP_APPROACH_2 )
+		{ state = SIGASP_APPROACH_1; }
+	else 
+		{
+		if ( this_state ==# SIGASP_APPROACH_3 )
+			{ state = SIGASP_APPROACH_3; }
+		else
+			{
+			if ( next_sig_mr (SIGFN_NORMAL) ==# SIGASP_APPROACH_1 )
+				{ state = SIGASP_APPROACH_2; }
+			else
+				{ state = SIGASP_CLEAR_2;}
+			}
+		}	
+	}
+
+draw_state = def_draw_state (state);
+
+SCRIPT PLK_SBL3_1_p
+
+	//extern float	block_state ();
+	//extern float	route_set ();
+	extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	//extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	//extern float	enabled;
+	extern float	this_sig_mr ();
+	float			this_state;
+	float			next_state;
+
+this_state = this_sig_mr ( SIGFN_NORMAL );
+if ( this_state ==# SIGASP_STOP || this_state ==# SIGASP_STOP_AND_PROCEED 
+	|| this_state ==# SIGASP_RESTRICTING )
+	{ state = SIGASP_STOP; }
+else
+	{
+	if ( this_state ==# SIGASP_APPROACH_2 )
+		{ state = SIGASP_APPROACH_1; }
+	else 
+		{
+		if ( this_state ==# SIGASP_APPROACH_3 )
+			{ state = SIGASP_APPROACH_3; }
+		else
+			{
+			if ( next_sig_mr (SIGFN_NORMAL) ==# SIGASP_APPROACH_1 )
+				{ state = SIGASP_APPROACH_2; }
+			else
+				{ state = SIGASP_CLEAR_2;}
+			}
+		}	
+	}
+
+draw_state = def_draw_state (state);
+
+SCRIPT PLK_SBL3_1_l
+
+	//extern float	block_state ();
+	//extern float	route_set ();
+	extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	//extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	//extern float	enabled;
+	extern float	this_sig_mr ();
+	float			this_state;
+	float			next_state;
+
+this_state = this_sig_mr ( SIGFN_NORMAL );
+if ( this_state ==# SIGASP_STOP || this_state ==# SIGASP_STOP_AND_PROCEED 
+	|| this_state ==# SIGASP_RESTRICTING )
+	{ state = SIGASP_STOP; }
+else
+	{
+	if ( this_state ==# SIGASP_APPROACH_2 )
+		{ state = SIGASP_APPROACH_1; }
+	else 
+		{
+		if ( this_state ==# SIGASP_APPROACH_3 )
+			{ state = SIGASP_APPROACH_3; }
+		else
+			{
+			if ( next_sig_mr (SIGFN_NORMAL) ==# SIGASP_APPROACH_1 )
+				{ state = SIGASP_APPROACH_2; }
+			else
+				{ state = SIGASP_CLEAR_2;}
+			}
+		}	
+	}
+
+draw_state = def_draw_state (state);
+
+SCRIPT PLK_SBL_S1
+
+	extern float	block_state ();
+	//extern float	route_set ();
+	extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	extern float	enabled;
+	float			next_state;
+
+	
+	if ( block_state() ==# BLOCK_OCCUPIED) 
+		{ state = SIGASP_STOP; }
+	else
+		{
+		next_state = next_sig_mr ( SIGFN_NORMAL );
+		if ( next_state ==# SIGASP_STOP ||
+		     next_state ==# SIGASP_STOP_AND_PROCEED )
+				{ state = SIGASP_APPROACH_2; }
+		else
+			{
+			if ( sig_feature( SIGFEAT_USER1 ) && next_state ==# SIGASP_APPROACH_2 )
+				{ state = SIGASP_APPROACH_3;}
+			else
+				{ state = SIGASP_CLEAR_2; }
+			}
+		}
+	
+draw_state = def_draw_state ( state );
+if ( state ==# SIGASP_CLEAR_2 && (!enabled ) )
+	{draw_state = 1; } 
+
+SCRIPT PLK_SBL_S1_p
+
+	extern float	block_state ();
+	//extern float	route_set ();
+	extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	extern float	enabled;
+	float			next_state;
+
+	
+	if ( block_state() ==# BLOCK_OCCUPIED) 
+		{ state = SIGASP_STOP; }
+	else
+		{
+		next_state = next_sig_mr ( SIGFN_NORMAL );
+		if ( next_state ==# SIGASP_STOP ||
+		     next_state ==# SIGASP_STOP_AND_PROCEED )
+				{ state = SIGASP_APPROACH_2; }
+		else
+			{
+			if ( sig_feature( SIGFEAT_USER1 ) && next_state ==# SIGASP_APPROACH_2 )
+				{ state = SIGASP_APPROACH_3;}
+			else
+				{ state = SIGASP_CLEAR_2; }
+			}
+		}
+	
+draw_state = def_draw_state ( state );
+if ( state ==# SIGASP_CLEAR_2 && (!enabled ) )
+	{draw_state = 1; } 
+
+SCRIPT PLK_SBL_S1_l
+
+	extern float	block_state ();
+	//extern float	route_set ();
+	extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	extern float	enabled;
+	float			next_state;
+
+	
+	if ( block_state() ==# BLOCK_OCCUPIED) 
+		{ state = SIGASP_STOP; }
+	else
+		{
+		next_state = next_sig_mr ( SIGFN_NORMAL );
+		if ( next_state ==# SIGASP_STOP ||
+		     next_state ==# SIGASP_STOP_AND_PROCEED )
+				{ state = SIGASP_APPROACH_2; }
+		else
+			{
+			if ( sig_feature( SIGFEAT_USER1 ) && next_state ==# SIGASP_APPROACH_2 )
+				{ state = SIGASP_APPROACH_3;}
+			else
+				{ state = SIGASP_CLEAR_2; }
+			}
+		}
+	
+draw_state = def_draw_state ( state );
+if ( state ==# SIGASP_CLEAR_2 && (!enabled ) )
+	{draw_state = 1; } 
+
+SCRIPT PLK_SBL_S1_w
+
+	extern float	block_state ();
+	//extern float	route_set ();
+	extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	extern float	enabled;
+	float			next_state;
+
+	
+	if ( block_state() ==# BLOCK_OCCUPIED) 
+		{ state = SIGASP_STOP; }
+	else
+		{
+		next_state = next_sig_mr ( SIGFN_NORMAL );
+		if ( next_state ==# SIGASP_STOP ||
+		     next_state ==# SIGASP_STOP_AND_PROCEED )
+				{ state = SIGASP_APPROACH_2; }
+		else
+			{
+			if ( sig_feature( SIGFEAT_USER1 ) && next_state ==# SIGASP_APPROACH_2 )
+				{ state = SIGASP_APPROACH_3;}
+			else
+				{ state = SIGASP_CLEAR_2; }
+			}
+		}
+	
+draw_state = def_draw_state ( state );
+if ( state ==# SIGASP_CLEAR_2 && (!enabled ) )
+	{draw_state = 1; } 
+
+SCRIPT PLK_SBL_S2/S3/S4/S5
+
+	//extern float	block_state ();
+	//extern float	route_set ();
+	extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	//extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	//extern float	enabled;
+	extern float	this_sig_mr ();
+	float			this_state;
+	float			next_state;
+
+this_state = this_sig_mr ( SIGFN_NORMAL );
+if ( this_state ==# SIGASP_STOP || this_state ==# SIGASP_STOP_AND_PROCEED 
+	|| this_state ==# SIGASP_RESTRICTING )
+	{ state = SIGASP_STOP; }
+else
+	{
+	if ( this_state ==# SIGASP_APPROACH_2 )
+		{ state = SIGASP_APPROACH_1; }
+	else 
+		{
+		if ( this_state ==# SIGASP_APPROACH_3 )
+			{ state = SIGASP_APPROACH_3; }
+		else
+			{
+			if ( next_sig_mr (SIGFN_NORMAL) ==# SIGASP_APPROACH_1 )
+				{ state = SIGASP_APPROACH_2; }
+			else
+				{ state = SIGASP_CLEAR_2;}
+			}
+		}	
+	}
+
+draw_state = def_draw_state (state);
+
+SCRIPT PLK_SBL_S2/S3/S4/S5_p
+
+	//extern float	block_state ();
+	//extern float	route_set ();
+	extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	//extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	//extern float	enabled;
+	extern float	this_sig_mr ();
+	float			this_state;
+	float			next_state;
+
+this_state = this_sig_mr ( SIGFN_NORMAL );
+if ( this_state ==# SIGASP_STOP || this_state ==# SIGASP_STOP_AND_PROCEED 
+	|| this_state ==# SIGASP_RESTRICTING )
+	{ state = SIGASP_STOP; }
+else
+	{
+	if ( this_state ==# SIGASP_APPROACH_2 )
+		{ state = SIGASP_APPROACH_1; }
+	else 
+		{
+		if ( this_state ==# SIGASP_APPROACH_3 )
+			{ state = SIGASP_APPROACH_3; }
+		else
+			{
+			if ( next_sig_mr (SIGFN_NORMAL) ==# SIGASP_APPROACH_1 )
+				{ state = SIGASP_APPROACH_2; }
+			else
+				{ state = SIGASP_CLEAR_2;}
+			}
+		}	
+	}
+
+draw_state = def_draw_state (state);
+
+SCRIPT PLK_SBL_S2/S3/S4/S5_l
+
+	//extern float	block_state ();
+	//extern float	route_set ();
+	extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	//extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	//extern float	enabled;
+	extern float	this_sig_mr ();
+	float			this_state;
+	float			next_state;
+
+this_state = this_sig_mr ( SIGFN_NORMAL );
+if ( this_state ==# SIGASP_STOP || this_state ==# SIGASP_STOP_AND_PROCEED 
+	|| this_state ==# SIGASP_RESTRICTING )
+	{ state = SIGASP_STOP; }
+else
+	{
+	if ( this_state ==# SIGASP_APPROACH_2 )
+		{ state = SIGASP_APPROACH_1; }
+	else 
+		{
+		if ( this_state ==# SIGASP_APPROACH_3 )
+			{ state = SIGASP_APPROACH_3; }
+		else
+			{
+			if ( next_sig_mr (SIGFN_NORMAL) ==# SIGASP_APPROACH_1 )
+				{ state = SIGASP_APPROACH_2; }
+			else
+				{ state = SIGASP_CLEAR_2;}
+			}
+		}	
+	}
+
+draw_state = def_draw_state (state);
+
+SCRIPT PLK_SBL_S2/S3/S4/S5_w
+
+	//extern float	block_state ();
+	//extern float	route_set ();
+	extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	//extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	//extern float	enabled;
+	extern float	this_sig_mr ();
+	float			this_state;
+	float			next_state;
+
+this_state = this_sig_mr ( SIGFN_NORMAL );
+if ( this_state ==# SIGASP_STOP || this_state ==# SIGASP_STOP_AND_PROCEED 
+	|| this_state ==# SIGASP_RESTRICTING )
+	{ state = SIGASP_STOP; }
+else
+	{
+	if ( this_state ==# SIGASP_APPROACH_2 )
+		{ state = SIGASP_APPROACH_1; }
+	else 
+		{
+		if ( this_state ==# SIGASP_APPROACH_3 )
+			{ state = SIGASP_APPROACH_3; }
+		else
+			{
+			if ( next_sig_mr (SIGFN_NORMAL) ==# SIGASP_APPROACH_1 )
+				{ state = SIGASP_APPROACH_2; }
+			else
+				{ state = SIGASP_CLEAR_2;}
+			}
+		}	
+	}
+
+draw_state = def_draw_state (state);
+
+SCRIPT PLK_sem1
+
+	//extern float	block_state ();
+	//extern float	route_set ();
+	//extern float	next_sig_lr ();
+	extern float	def_draw_state ();
+	//extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	//extern float	enabled;
+	//float			next_state;
+
+
+state = SIGASP_STOP;
+
+draw_state = def_draw_state ( state );
+
+SCRIPT PLK_sem2_S1/Sz
+
+	extern float	block_state ();
+	//extern float	route_set ();
+	extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	extern float	enabled;
+	float			next_state;
+
+
+next_state = next_sig_mr ( SIGFN_NORMAL );
+if (  
+	!enabled ||
+	block_state() ==# BLOCK_OCCUPIED ||
+	next_state  ==# SIGASP_CLEAR_1
+   ) 						
+	{ state = SIGASP_STOP; }
+else
+	{ state = SIGASP_STOP_AND_PROCEED; }
+
+if ( sig_feature( SIGFEAT_USER1 ) )
+	{ 
+	if ( next_state ==# SIGASP_STOP )
+		{ state = SIGASP_STOP;}
+	else
+		{ state = SIGASP_STOP_AND_PROCEED; }
+	}
+draw_state = def_draw_state ( state );
+
+if ( ( state ==# SIGASP_STOP_AND_PROCEED ) && ( next_state ==# SIGASP_RESTRICTING ) )
+	{draw_state = 2;}
+
+SCRIPT PLK_sem2_SZ2N
+
+	extern float	block_state ();
+	//extern float	route_set ();
+	extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	extern float	enabled;
+	float			next_state;
+
+
+next_state = next_sig_mr ( SIGFN_NORMAL );
+if (  
+	!enabled ||
+	block_state() ==# BLOCK_OCCUPIED ||
+	next_state  ==# SIGASP_CLEAR_1
+   ) 						
+	{ state = SIGASP_STOP; }
+else
+	{ state = SIGASP_STOP_AND_PROCEED; }
+
+if ( sig_feature( SIGFEAT_USER1 ) )
+	{ 
+	if ( next_state ==# SIGASP_STOP )
+		{ state = SIGASP_STOP;}
+	else
+		{ state = SIGASP_STOP_AND_PROCEED; }
+	}
+draw_state = def_draw_state ( state );
+
+SCRIPT PLK_sem2_S1/Sz_KARZ
+
+	extern float	block_state ();
+	//extern float	route_set ();
+	extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	extern float	enabled;
+	float			next_state;
+
+
+next_state = next_sig_mr ( SIGFN_NORMAL );
+if (  
+	!enabled ||
+	block_state() ==# BLOCK_OCCUPIED ||
+	next_state  ==# SIGASP_CLEAR_1
+   ) 						
+	{ state = SIGASP_STOP; }
+else
+	{ state = SIGASP_STOP_AND_PROCEED; }
+
+if ( sig_feature( SIGFEAT_USER1 ) )
+	{ 
+	if ( next_state ==# SIGASP_STOP )
+		{ state = SIGASP_STOP;}
+	else
+		{ state = SIGASP_STOP_AND_PROCEED; }
+	}
+draw_state = def_draw_state ( state );
+
+if ( ( state ==# SIGASP_STOP_AND_PROCEED ) && ( next_state ==# SIGASP_RESTRICTING ) )
+	{draw_state = 2;}
+
+SCRIPT PLK_sem2_S1
+
+	extern float	block_state ();
+	//extern float	route_set ();
+	extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	//extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	extern float	enabled;
+	//float			next_state;
+
+
+if (  !enabled ||
+	block_state() ==# BLOCK_OCCUPIED ||
+	next_sig_mr( SIGFN_NORMAL ) ==# SIGASP_CLEAR_1 )
+
+	{ state = SIGASP_STOP; }
+else
+	{ state = SIGASP_CLEAR_2; }
+
+draw_state = def_draw_state ( state );
+
+SCRIPT PLK_sem2_S1_KARZ
+
+	extern float	block_state ();
+	//extern float	route_set ();
+	extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	//extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	extern float	enabled;
+	//float			next_state;
+
+
+if (  !enabled ||
+	block_state() ==# BLOCK_OCCUPIED ||
+	next_sig_mr( SIGFN_NORMAL ) ==# SIGASP_CLEAR_1 )
+
+	{ state = SIGASP_STOP; }
+else
+	{ state = SIGASP_CLEAR_2; }
+
+draw_state = def_draw_state ( state );
+
+SCRIPT PLK_sem2_S2/S3
+
+	//extern float	block_state ();
+	//extern float	route_set ();
+	extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	//extern float	enabled;
+	extern float	this_sig_mr ();
+	float			next_state_norm;
+	float			next_state_dist;
+	float			this_signal;
+
+this_signal = this_sig_mr ( SIGFN_NORMAL );
+if ( this_signal ==# SIGASP_STOP  || 
+	this_signal ==# SIGASP_STOP_AND_PROCEED)
+	{
+	state = SIGASP_STOP;
+	}
+else
+	{
+	next_state_norm = next_sig_mr ( SIGFN_NORMAL );
+			
+		if ( next_state_norm ==# SIGASP_APPROACH_2 )
+			{ state = SIGASP_APPROACH_3; }
+		else
+			{ state = SIGASP_CLEAR_2; }			
+
+	
+	}
+
+draw_state = def_draw_state (state);
+
+SCRIPT PLK_sem2_S2/S3_KARZ
+
+	//extern float	block_state ();
+	//extern float	route_set ();
+	extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	//extern float	enabled;
+	extern float	this_sig_mr ();
+	float			next_state_norm;
+	float			next_state_dist;
+	float			this_signal;
+
+this_signal = this_sig_mr ( SIGFN_NORMAL );
+if ( this_signal ==# SIGASP_STOP  || 
+	this_signal ==# SIGASP_STOP_AND_PROCEED)
+	{
+	state = SIGASP_STOP;
+	}
+else
+	{
+	next_state_norm = next_sig_mr ( SIGFN_NORMAL );
+			
+		if ( next_state_norm ==# SIGASP_APPROACH_2 )
+			{ state = SIGASP_APPROACH_3; }
+		else
+			{ state = SIGASP_CLEAR_2; }			
+
+	
+	}
+
+draw_state = def_draw_state (state);
+
+SCRIPT PLK_sem2_S4/S5
+
+	//extern float	block_state ();
+	//extern float	route_set ();
+	extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	//extern float	enabled;
+	extern float	this_sig_mr ();
+	float			next_state_norm;
+	float			next_state_dist;
+	float			this_signal;
+
+this_signal = this_sig_mr ( SIGFN_NORMAL );
+if ( this_signal ==# SIGASP_STOP  || 
+	this_signal ==# SIGASP_STOP_AND_PROCEED)
+	{
+	state = SIGASP_STOP;
+	}
+else
+	{
+	next_state_norm = next_sig_mr ( SIGFN_NORMAL );
+			
+		if ( next_state_norm ==# SIGASP_STOP || 
+			next_state_norm ==# SIGASP_STOP_AND_PROCEED)
+			{ state = SIGASP_APPROACH_1; }
+		else
+			{ state = SIGASP_APPROACH_2; }			
+
+	
+	}
+
+draw_state = def_draw_state (state);
+
+SCRIPT PLK_sem2_S4/S5_KARZ
+
+	//extern float	block_state ();
+	//extern float	route_set ();
+	extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	//extern float	enabled;
+	extern float	this_sig_mr ();
+	float			next_state_norm;
+	float			next_state_dist;
+	float			this_signal;
+
+this_signal = this_sig_mr ( SIGFN_NORMAL );
+if ( this_signal ==# SIGASP_STOP  || 
+	this_signal ==# SIGASP_STOP_AND_PROCEED)
+	{
+	state = SIGASP_STOP;
+	}
+else
+	{
+	next_state_norm = next_sig_mr ( SIGFN_NORMAL );
+			
+		if ( next_state_norm ==# SIGASP_STOP || 
+			next_state_norm ==# SIGASP_STOP_AND_PROCEED)
+			{ state = SIGASP_APPROACH_1; }
+		else
+			{ state = SIGASP_APPROACH_2; }			
+
+	
+	}
+
+draw_state = def_draw_state (state);
+
+SCRIPT PLK_sem3_S1/S5
+
+	extern float	block_state ();
+	extern float	route_set ();
+	extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	extern float	enabled;
+	//extern float	this_sig_mr ();
+	float			next_state;
+	//float		next_state_dist;
+	float			straight;
+	
+
+
+next_state = next_sig_mr ( SIGFN_NORMAL );
+if (  
+	!enabled ||
+	block_state() ==# BLOCK_OCCUPIED ||
+	next_state ==# SIGASP_CLEAR_1 ) 
+						
+
+	{ state = SIGASP_STOP; }
+
+else
+	{
+			
+	if ( sig_feature ( SIGFEAT_USER1 ) )
+		{ straight = route_set(); }
+	else
+		{straight = 1;}
+	if ( !straight ||
+		sig_feature ( SIGFEAT_USER2 )  ) 
+			{ state = SIGASP_APPROACH_1; }
+			else 
+			{ state = SIGASP_CLEAR_2; }
+	}
+draw_state = def_draw_state (state);
+
+SCRIPT PLK_sem3_S1/S5_P
+
+	extern float	block_state ();
+	extern float	route_set ();
+	extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	extern float	enabled;
+	//extern float	this_sig_mr ();
+	float			next_state;
+	//float		next_state_dist;
+	float			straight;
+	
+
+
+next_state = next_sig_mr ( SIGFN_NORMAL );
+if (  
+	!enabled ||
+	block_state() ==# BLOCK_OCCUPIED ||
+	next_state ==# SIGASP_CLEAR_1 ) 
+						
+
+	{ state = SIGASP_STOP; }
+
+else
+	{
+			
+	if ( sig_feature ( SIGFEAT_USER1 ) )
+		{ straight = route_set(); }
+	else
+		{straight = 1;}
+	if ( !straight ||
+		sig_feature ( SIGFEAT_USER2 )  ) 
+			{ state = SIGASP_APPROACH_1; }
+			else 
+			{ state = SIGASP_CLEAR_2; }
+	}
+draw_state = def_draw_state (state);
+
+SCRIPT PLK_sem3_S1/S5_L
+
+	extern float	block_state ();
+	extern float	route_set ();
+	extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	extern float	enabled;
+	//extern float	this_sig_mr ();
+	float			next_state;
+	//float		next_state_dist;
+	float			straight;
+	
+
+
+next_state = next_sig_mr ( SIGFN_NORMAL );
+if (  
+	!enabled ||
+	block_state() ==# BLOCK_OCCUPIED ||
+	next_state ==# SIGASP_CLEAR_1 ) 
+						
+
+	{ state = SIGASP_STOP; }
+
+else
+	{
+			
+	if ( sig_feature ( SIGFEAT_USER1 ) )
+		{ straight = route_set(); }
+	else
+		{straight = 1;}
+	if ( !straight ||
+		sig_feature ( SIGFEAT_USER2 )  ) 
+			{ state = SIGASP_APPROACH_1; }
+			else 
+			{ state = SIGASP_CLEAR_2; }
+	}
+draw_state = def_draw_state (state);
+
+SCRIPT PLK_sem3_S1/S5_KARZ
+
+	extern float	block_state ();
+	extern float	route_set ();
+	extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	extern float	enabled;
+	//extern float	this_sig_mr ();
+	float			next_state;
+	//float		next_state_dist;
+	float			straight;
+	
+
+
+next_state = next_sig_mr ( SIGFN_NORMAL );
+if (  !enabled ||
+	block_state() ==# BLOCK_OCCUPIED ||
+	next_state ==# SIGASP_CLEAR_1 )
+
+	{ state = SIGASP_STOP; }
+
+else
+	{
+			
+	if ( sig_feature ( SIGFEAT_USER1 ) )
+		{ straight = route_set (); }
+	else
+		{straight = 1;}
+	if ( !straight ||
+		sig_feature ( SIGFEAT_USER2 )  ) 
+			{ state = SIGASP_APPROACH_1; }
+			else 
+			{ state = SIGASP_CLEAR_2; }
+	}
+draw_state = def_draw_state (state);
+
+SCRIPT PLK_sem3_S1/S10a
+
+	extern float	block_state ();
+	extern float	route_set ();
+	extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	extern float	enabled;
+	//extern float	this_sig_mr ();
+	float			next_state;
+	//float		next_state_dist;
+	float			straight;
+	
+
+
+next_state = next_sig_mr ( SIGFN_NORMAL );
+if (  !enabled ||
+	block_state() ==# BLOCK_OCCUPIED ||
+	next_state ==# SIGASP_CLEAR_1 )
+
+	{ state = SIGASP_STOP; }
+
+else
+	{
+			
+	if ( sig_feature ( SIGFEAT_USER1 ) )
+		{ straight = route_set (); }
+	else
+		{straight = 1;}
+	if ( !straight ||
+		sig_feature ( SIGFEAT_USER2 )  )
+			{ state = SIGASP_APPROACH_1; }
+			else 
+			{ state = SIGASP_CLEAR_2; }
+	}
+draw_state = def_draw_state (state);
+
+SCRIPT PLK_sem3_S1/S10a_P
+
+	extern float	block_state ();
+	extern float	route_set ();
+	extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	extern float	enabled;
+	//extern float	this_sig_mr ();
+	float			next_state;
+	//float		next_state_dist;
+	float			straight;
+	
+
+
+next_state = next_sig_mr ( SIGFN_NORMAL );
+if (  !enabled ||
+	block_state() ==# BLOCK_OCCUPIED ||
+	next_state ==# SIGASP_CLEAR_1 )
+
+	{ state = SIGASP_STOP; }
+
+else
+	{
+			
+	if ( sig_feature ( SIGFEAT_USER1 ) )
+		{ straight = route_set (); }
+	else
+		{straight = 1;}
+	if ( !straight ||
+		sig_feature ( SIGFEAT_USER2 )  )
+			{ state = SIGASP_APPROACH_1; }
+			else 
+			{ state = SIGASP_CLEAR_2; }
+	}
+draw_state = def_draw_state (state);
+
+SCRIPT PLK_sem3_S1/S10a_L
+
+	extern float	block_state ();
+	extern float	route_set ();
+	extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	extern float	enabled;
+	//extern float	this_sig_mr ();
+	float			next_state;
+	//float		next_state_dist;
+	float			straight;
+	
+
+
+next_state = next_sig_mr ( SIGFN_NORMAL );
+if (  !enabled ||
+	block_state() ==# BLOCK_OCCUPIED ||
+	next_state ==# SIGASP_CLEAR_1 )
+
+	{ state = SIGASP_STOP; }
+
+else
+	{
+			
+	if ( sig_feature ( SIGFEAT_USER1 ) )
+		{ straight = route_set (); }
+	else
+		{straight = 1;}
+	if ( !straight ||
+		sig_feature ( SIGFEAT_USER2 )  )
+			{ state = SIGASP_APPROACH_1; }
+			else 
+			{ state = SIGASP_CLEAR_2; }
+	}
+draw_state = def_draw_state (state);
+
+SCRIPT PLK_sem3_S1/S6
+
+	extern float	block_state ();
+	extern float	route_set ();
+	extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	extern float	enabled;
+	//extern float	this_sig_mr ();
+	float			next_state;
+	//float		next_state_dist;
+	float			straight;
+	
+
+
+next_state = next_sig_mr ( SIGFN_NORMAL );
+if (  !enabled ||
+	block_state() ==# BLOCK_OCCUPIED ||
+	next_state ==# SIGASP_CLEAR_1 )
+
+	{ state = SIGASP_STOP; }
+
+else
+	{
+			
+	if ( sig_feature ( SIGFEAT_USER1 ) )
+		{ straight = route_set (); }
+	else
+		{straight = 1;}
+	if ( !straight ||
+		sig_feature ( SIGFEAT_USER2 )  )
+			{ state = SIGASP_APPROACH_2; }
+			else 
+			{ state = SIGASP_CLEAR_2; }
+	}
+draw_state = def_draw_state (state);
+
+SCRIPT PLK_sem3_S1/S6_P
+
+	extern float	block_state ();
+	extern float	route_set ();
+	extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	extern float	enabled;
+	//extern float	this_sig_mr ();
+	float			next_state;
+	//float		next_state_dist;
+	float			straight;
+	
+
+
+next_state = next_sig_mr ( SIGFN_NORMAL );
+if (  !enabled ||
+	block_state() ==# BLOCK_OCCUPIED ||
+	next_state ==# SIGASP_CLEAR_1 )
+
+	{ state = SIGASP_STOP; }
+
+else
+	{
+			
+	if ( sig_feature ( SIGFEAT_USER1 ) )
+		{ straight = route_set (); }
+	else
+		{straight = 1;}
+	if ( !straight ||
+		sig_feature ( SIGFEAT_USER2 )  )
+			{ state = SIGASP_APPROACH_2; }
+			else 
+			{ state = SIGASP_CLEAR_2; }
+	}
+draw_state = def_draw_state (state);
+
+SCRIPT PLK_sem3_S1/S6_L
+
+	extern float	block_state ();
+	extern float	route_set ();
+	extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	extern float	enabled;
+	//extern float	this_sig_mr ();
+	float			next_state;
+	//float		next_state_dist;
+	float			straight;
+	
+
+
+next_state = next_sig_mr ( SIGFN_NORMAL );
+if (  !enabled ||
+	block_state() ==# BLOCK_OCCUPIED ||
+	next_state ==# SIGASP_CLEAR_1 )
+
+	{ state = SIGASP_STOP; }
+
+else
+	{
+			
+	if ( sig_feature ( SIGFEAT_USER1 ) )
+		{ straight = route_set (); }
+	else
+		{straight = 1;}
+	if ( !straight ||
+		sig_feature ( SIGFEAT_USER2 )  )
+			{ state = SIGASP_APPROACH_2; }
+			else 
+			{ state = SIGASP_CLEAR_2; }
+	}
+draw_state = def_draw_state (state);
+
+SCRIPT PLK_sem3_S4/S5(G)
+
+	//extern float	block_state ();
+	//extern float	route_set ();
+	extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	//extern float	enabled;
+	extern float	this_sig_mr ();
+	float			next_state_norm;
+	float			next_state_dist;
+	float			this_signal;
+
+this_signal = this_sig_mr ( SIGFN_NORMAL );
+if ( this_signal ==# SIGASP_STOP  || 
+	this_signal ==# SIGASP_STOP_AND_PROCEED)
+	{
+	state = SIGASP_STOP;
+	}
+else
+	{
+	next_state_norm = next_sig_mr ( SIGFN_NORMAL );
+			
+		if ( next_state_norm ==# SIGASP_STOP || 
+			next_state_norm ==# SIGASP_STOP_AND_PROCEED)
+			{ state = SIGASP_APPROACH_1; }
+		else
+			{ state = SIGASP_APPROACH_2; }			
+
+	
+	}
+
+draw_state = def_draw_state (state);
+
+SCRIPT PLK_sem3_S4/S5(G)_P
+
+	//extern float	block_state ();
+	//extern float	route_set ();
+	extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	//extern float	enabled;
+	extern float	this_sig_mr ();
+	float			next_state_norm;
+	float			next_state_dist;
+	float			this_signal;
+
+this_signal = this_sig_mr ( SIGFN_NORMAL );
+if ( this_signal ==# SIGASP_STOP  || 
+	this_signal ==# SIGASP_STOP_AND_PROCEED)
+	{
+	state = SIGASP_STOP;
+	}
+else
+	{
+	next_state_norm = next_sig_mr ( SIGFN_NORMAL );
+			
+		if ( next_state_norm ==# SIGASP_STOP || 
+			next_state_norm ==# SIGASP_STOP_AND_PROCEED)
+			{ state = SIGASP_APPROACH_1; }
+		else
+			{ state = SIGASP_APPROACH_2; }			
+
+	
+	}
+
+draw_state = def_draw_state (state);
+
+SCRIPT PLK_sem3_S4/S5(G)_L
+
+	//extern float	block_state ();
+	//extern float	route_set ();
+	extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	//extern float	enabled;
+	extern float	this_sig_mr ();
+	float			next_state_norm;
+	float			next_state_dist;
+	float			this_signal;
+
+this_signal = this_sig_mr ( SIGFN_NORMAL );
+if ( this_signal ==# SIGASP_STOP  || 
+	this_signal ==# SIGASP_STOP_AND_PROCEED)
+	{
+	state = SIGASP_STOP;
+	}
+else
+	{
+	next_state_norm = next_sig_mr ( SIGFN_NORMAL );
+			
+		if ( next_state_norm ==# SIGASP_STOP || 
+			next_state_norm ==# SIGASP_STOP_AND_PROCEED)
+			{ state = SIGASP_APPROACH_1; }
+		else
+			{ state = SIGASP_APPROACH_2; }			
+
+	
+	}
+
+draw_state = def_draw_state (state);
+
+SCRIPT PLK_sem3_S4/S5(G)_KARZ
+
+	//extern float	block_state ();
+	//extern float	route_set ();
+	extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	//extern float	enabled;
+	extern float	this_sig_mr ();
+	float			next_state_norm;
+	float			next_state_dist;
+	float			this_signal;
+
+this_signal = this_sig_mr ( SIGFN_NORMAL );
+if ( this_signal ==# SIGASP_STOP  || 
+	this_signal ==# SIGASP_STOP_AND_PROCEED)
+	{
+	state = SIGASP_STOP;
+	}
+else
+	{
+	next_state_norm = next_sig_mr ( SIGFN_NORMAL );
+			
+		if ( next_state_norm ==# SIGASP_STOP || 
+			next_state_norm ==# SIGASP_STOP_AND_PROCEED)
+			{ state = SIGASP_APPROACH_1; }
+		else
+			{ state = SIGASP_APPROACH_2; }			
+
+	
+	}
+
+draw_state = def_draw_state (state);
+
+SCRIPT PLK_sem3_S2/S3(G)
+
+	//extern float	block_state ();
+	//extern float	route_set ();
+	extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	//extern float	enabled;
+	extern float	this_sig_mr ();
+	float			next_state_norm;
+	float			next_state_dist;
+	float			this_signal;
+
+this_signal = this_sig_mr ( SIGFN_NORMAL );
+if ( this_signal ==# SIGASP_STOP  || 
+	this_signal ==# SIGASP_STOP_AND_PROCEED)
+	{
+	state = SIGASP_STOP;
+	}
+else
+	{
+	next_state_norm = next_sig_mr ( SIGFN_NORMAL );
+			
+		if ( next_state_norm ==# SIGASP_APPROACH_2 )
+			{ state = SIGASP_APPROACH_3; }
+		else
+			{ state = SIGASP_CLEAR_2; }			
+
+	
+	}
+
+draw_state = def_draw_state (state);
+
+SCRIPT PLK_sem3_S2/S3(G)_P
+
+	//extern float	block_state ();
+	//extern float	route_set ();
+	extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	//extern float	enabled;
+	extern float	this_sig_mr ();
+	float			next_state_norm;
+	float			next_state_dist;
+	float			this_signal;
+
+this_signal = this_sig_mr ( SIGFN_NORMAL );
+if ( this_signal ==# SIGASP_STOP  || 
+	this_signal ==# SIGASP_STOP_AND_PROCEED)
+	{
+	state = SIGASP_STOP;
+	}
+else
+	{
+	next_state_norm = next_sig_mr ( SIGFN_NORMAL );
+			
+		if ( next_state_norm ==# SIGASP_APPROACH_2 )
+			{ state = SIGASP_APPROACH_3; }
+		else
+			{ state = SIGASP_CLEAR_2; }			
+
+	
+	}
+
+draw_state = def_draw_state (state);
+
+SCRIPT PLK_sem3_S2/S3(G)_L
+
+	//extern float	block_state ();
+	//extern float	route_set ();
+	extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	//extern float	enabled;
+	extern float	this_sig_mr ();
+	float			next_state_norm;
+	float			next_state_dist;
+	float			this_signal;
+
+this_signal = this_sig_mr ( SIGFN_NORMAL );
+if ( this_signal ==# SIGASP_STOP  || 
+	this_signal ==# SIGASP_STOP_AND_PROCEED)
+	{
+	state = SIGASP_STOP;
+	}
+else
+	{
+	next_state_norm = next_sig_mr ( SIGFN_NORMAL );
+			
+		if ( next_state_norm ==# SIGASP_APPROACH_2 )
+			{ state = SIGASP_APPROACH_3; }
+		else
+			{ state = SIGASP_CLEAR_2; }			
+
+	
+	}
+
+draw_state = def_draw_state (state);
+
+SCRIPT PLK_sem3_S2/S3(G)_KARZ
+
+	//extern float	block_state ();
+	//extern float	route_set ();
+	extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	//extern float	enabled;
+	extern float	this_sig_mr ();
+	float			next_state_norm;
+	float			next_state_dist;
+	float			this_signal;
+
+this_signal = this_sig_mr ( SIGFN_NORMAL );
+if ( this_signal ==# SIGASP_STOP  || 
+	this_signal ==# SIGASP_STOP_AND_PROCEED)
+	{
+	state = SIGASP_STOP;
+	}
+else
+	{
+	next_state_norm = next_sig_mr ( SIGFN_NORMAL );
+			
+		if ( next_state_norm ==# SIGASP_APPROACH_2 )
+			{ state = SIGASP_APPROACH_3; }
+		else
+			{ state = SIGASP_CLEAR_2; }			
+
+	
+	}
+
+draw_state = def_draw_state (state);
+
+SCRIPT PLK_sem3_S4/S5
+
+	//extern float	block_state ();
+	//extern float	route_set ();
+	extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	//extern float	enabled;
+	extern float	this_sig_mr ();
+	float			next_state_norm;
+	float			next_state_dist;
+	float			this_signal;
+
+this_signal = this_sig_mr ( SIGFN_NORMAL );
+if ( this_signal ==# SIGASP_STOP  || 
+	this_signal ==# SIGASP_STOP_AND_PROCEED)
+	{
+	state = SIGASP_STOP;
+	}
+else
+	{
+	next_state_norm = next_sig_mr ( SIGFN_NORMAL );
+			
+		if ( next_state_norm ==# SIGASP_STOP || 
+			next_state_norm ==# SIGASP_STOP_AND_PROCEED)
+			{ state = SIGASP_APPROACH_1; }
+		else
+			{ state = SIGASP_APPROACH_2; }			
+
+	
+	}
+
+draw_state = def_draw_state (state);
+
+SCRIPT PLK_sem3_S4/S5_P
+
+	//extern float	block_state ();
+	//extern float	route_set ();
+	extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	//extern float	enabled;
+	extern float	this_sig_mr ();
+	float			next_state_norm;
+	float			next_state_dist;
+	float			this_signal;
+
+this_signal = this_sig_mr ( SIGFN_NORMAL );
+if ( this_signal ==# SIGASP_STOP  || 
+	this_signal ==# SIGASP_STOP_AND_PROCEED)
+	{
+	state = SIGASP_STOP;
+	}
+else
+	{
+	next_state_norm = next_sig_mr ( SIGFN_NORMAL );
+			
+		if ( next_state_norm ==# SIGASP_STOP || 
+			next_state_norm ==# SIGASP_STOP_AND_PROCEED)
+			{ state = SIGASP_APPROACH_1; }
+		else
+			{ state = SIGASP_APPROACH_2; }			
+
+	
+	}
+
+draw_state = def_draw_state (state);
+
+SCRIPT PLK_sem3_S4/S5_L
+
+	//extern float	block_state ();
+	//extern float	route_set ();
+	extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	//extern float	enabled;
+	extern float	this_sig_mr ();
+	float			next_state_norm;
+	float			next_state_dist;
+	float			this_signal;
+
+this_signal = this_sig_mr ( SIGFN_NORMAL );
+if ( this_signal ==# SIGASP_STOP  || 
+	this_signal ==# SIGASP_STOP_AND_PROCEED)
+	{
+	state = SIGASP_STOP;
+	}
+else
+	{
+	next_state_norm = next_sig_mr ( SIGFN_NORMAL );
+			
+		if ( next_state_norm ==# SIGASP_STOP || 
+			next_state_norm ==# SIGASP_STOP_AND_PROCEED)
+			{ state = SIGASP_APPROACH_1; }
+		else
+			{ state = SIGASP_APPROACH_2; }			
+
+	
+	}
+
+draw_state = def_draw_state (state);
+
+SCRIPT PLK_sem3_S4/S5_KARZ
+
+	//extern float	block_state ();
+	//extern float	route_set ();
+	extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	//extern float	enabled;
+	extern float	this_sig_mr ();
+	float			next_state_norm;
+	float			next_state_dist;
+	float			this_signal;
+
+this_signal = this_sig_mr ( SIGFN_NORMAL );
+if ( this_signal ==# SIGASP_STOP  || 
+	this_signal ==# SIGASP_STOP_AND_PROCEED)
+	{
+	state = SIGASP_STOP;
+	}
+else
+	{
+	next_state_norm = next_sig_mr ( SIGFN_NORMAL );
+			
+		if ( next_state_norm ==# SIGASP_STOP || 
+			next_state_norm ==# SIGASP_STOP_AND_PROCEED)
+			{ state = SIGASP_APPROACH_1; }
+		else
+			{ state = SIGASP_APPROACH_2; }			
+
+	
+	}
+
+draw_state = def_draw_state (state);
+
+SCRIPT PLK_sem3_S2/S3
+
+	//extern float	block_state ();
+	//extern float	route_set ();
+	extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	//extern float	enabled;
+	extern float	this_sig_mr ();
+	float			next_state_norm;
+	float			next_state_dist;
+	float			this_signal;
+
+this_signal = this_sig_mr ( SIGFN_NORMAL );
+if ( this_signal ==# SIGASP_STOP  || 
+	this_signal ==# SIGASP_STOP_AND_PROCEED)
+	{
+	state = SIGASP_STOP;
+	}
+else
+	{
+	next_state_norm = next_sig_mr ( SIGFN_NORMAL );
+			
+		if ( next_state_norm ==# SIGASP_APPROACH_2 )
+			{ state = SIGASP_APPROACH_3; }
+		else
+			{ state = SIGASP_CLEAR_2; }			
+
+	
+	}
+
+draw_state = def_draw_state (state);
+
+SCRIPT PLK_sem3_S2/S3_P
+
+	//extern float	block_state ();
+	//extern float	route_set ();
+	extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	//extern float	enabled;
+	extern float	this_sig_mr ();
+	float			next_state_norm;
+	float			next_state_dist;
+	float			this_signal;
+
+this_signal = this_sig_mr ( SIGFN_NORMAL );
+if ( this_signal ==# SIGASP_STOP  || 
+	this_signal ==# SIGASP_STOP_AND_PROCEED)
+	{
+	state = SIGASP_STOP;
+	}
+else
+	{
+	next_state_norm = next_sig_mr ( SIGFN_NORMAL );
+			
+		if ( next_state_norm ==# SIGASP_APPROACH_2 )
+			{ state = SIGASP_APPROACH_3; }
+		else
+			{ state = SIGASP_CLEAR_2; }			
+
+	
+	}
+
+draw_state = def_draw_state (state);
+
+SCRIPT PLK_sem3_S2/S3_L
+
+	//extern float	block_state ();
+	//extern float	route_set ();
+	extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	//extern float	enabled;
+	extern float	this_sig_mr ();
+	float			next_state_norm;
+	float			next_state_dist;
+	float			this_signal;
+
+this_signal = this_sig_mr ( SIGFN_NORMAL );
+if ( this_signal ==# SIGASP_STOP  || 
+	this_signal ==# SIGASP_STOP_AND_PROCEED)
+	{
+	state = SIGASP_STOP;
+	}
+else
+	{
+	next_state_norm = next_sig_mr ( SIGFN_NORMAL );
+			
+		if ( next_state_norm ==# SIGASP_APPROACH_2 )
+			{ state = SIGASP_APPROACH_3; }
+		else
+			{ state = SIGASP_CLEAR_2; }			
+
+	
+	}
+
+draw_state = def_draw_state (state);
+
+SCRIPT PLK_sem3_S2/S3_KARZ
+
+	//extern float	block_state ();
+	//extern float	route_set ();
+	extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	//extern float	enabled;
+	extern float	this_sig_mr ();
+	float			next_state_norm;
+	float			next_state_dist;
+	float			this_signal;
+
+this_signal = this_sig_mr ( SIGFN_NORMAL );
+if ( this_signal ==# SIGASP_STOP  || 
+	this_signal ==# SIGASP_STOP_AND_PROCEED)
+	{
+	state = SIGASP_STOP;
+	}
+else
+	{
+	next_state_norm = next_sig_mr ( SIGFN_NORMAL );
+			
+		if ( next_state_norm ==# SIGASP_APPROACH_2 )
+			{ state = SIGASP_APPROACH_3; }
+		else
+			{ state = SIGASP_CLEAR_2; }			
+
+	
+	}
+
+draw_state = def_draw_state (state);
+
+SCRIPT PLK_sem3_S1/Sz
+
+	extern float	block_state ();
+	extern float	route_set ();
+	extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	extern float	enabled;
+	//extern float	this_sig_mr ();
+	float			next_state;
+	//float		next_state_dist;
+	float			straight;
+
+next_state = next_sig_mr ( SIGFN_NORMAL );
+if (  !enabled ||
+	block_state() ==# BLOCK_OCCUPIED ||
+	next_state ==# SIGASP_CLEAR_1 )
+
+	{ state = SIGASP_STOP; }
+
+else
+	{
+			
+	if ( sig_feature ( SIGFEAT_USER1 ) )
+		{ straight = route_set (); }
+	else
+		{straight = 1;}
+		if ( !straight ||
+			next_state ==# SIGASP_RESTRICTING )
+				
+			{ state = SIGASP_STOP_AND_PROCEED; }
+		else 
+			{ state = SIGASP_CLEAR_2; }
+	}
+draw_state = def_draw_state (state);
+
+if ( ( state ==# SIGASP_STOP_AND_PROCEED ) && ( next_state ==# SIGASP_RESTRICTING ) )
+	{draw_state = 2;}
+
+SCRIPT PLK_sem3_S1/Sz_P
+
+	extern float	block_state ();
+	extern float	route_set ();
+	extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	extern float	enabled;
+	//extern float	this_sig_mr ();
+	float			next_state;
+	//float		next_state_dist;
+	float			straight;
+
+next_state = next_sig_mr ( SIGFN_NORMAL );
+if (  !enabled ||
+	block_state() ==# BLOCK_OCCUPIED ||
+	next_state ==# SIGASP_CLEAR_1 )
+
+	{ state = SIGASP_STOP; }
+
+else
+	{
+			
+	if ( sig_feature ( SIGFEAT_USER1 ) )
+		{ straight = route_set (); }
+	else
+		{straight = 1;}
+		if ( !straight ||
+			next_state ==# SIGASP_RESTRICTING )
+				
+			{ state = SIGASP_STOP_AND_PROCEED; }
+		else 
+			{ state = SIGASP_CLEAR_2; }
+	}
+draw_state = def_draw_state (state);
+
+if ( ( state ==# SIGASP_STOP_AND_PROCEED ) && ( next_state ==# SIGASP_RESTRICTING ) )
+	{draw_state = 2;}
+
+SCRIPT PLK_sem3_S1/Sz_L
+
+	extern float	block_state ();
+	extern float	route_set ();
+	extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	extern float	enabled;
+	//extern float	this_sig_mr ();
+	float			next_state;
+	//float		next_state_dist;
+	float			straight;
+
+next_state = next_sig_mr ( SIGFN_NORMAL );
+if (  !enabled ||
+	block_state() ==# BLOCK_OCCUPIED ||
+	next_state ==# SIGASP_CLEAR_1 )
+
+	{ state = SIGASP_STOP; }
+
+else
+	{
+			
+	if ( sig_feature ( SIGFEAT_USER1 ) )
+		{ straight = route_set (); }
+	else
+		{straight = 1;}
+		if ( !straight ||
+			next_state ==# SIGASP_RESTRICTING )
+				
+			{ state = SIGASP_STOP_AND_PROCEED; }
+		else 
+			{ state = SIGASP_CLEAR_2; }
+	}
+draw_state = def_draw_state (state);
+
+if ( ( state ==# SIGASP_STOP_AND_PROCEED ) && ( next_state ==# SIGASP_RESTRICTING ) )
+	{draw_state = 2;}
+
+SCRIPT PLK_sem3_S1/Sz_KARZ
+
+	extern float	block_state ();
+	extern float	route_set ();
+	extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	extern float	enabled;
+	//extern float	this_sig_mr ();
+	float			next_state;
+	//float		next_state_dist;
+	float			straight;
+	
+
+
+next_state = next_sig_mr ( SIGFN_NORMAL );
+if (  !enabled ||
+	block_state() ==# BLOCK_OCCUPIED ||
+	next_state ==# SIGASP_CLEAR_1 )
+
+	{ state = SIGASP_STOP; }
+
+else
+	{
+			
+	if ( sig_feature ( SIGFEAT_USER1 ) )
+		{ straight = route_set (); }
+	else
+		{straight = 1;}
+		if ( !straight ||
+			next_state ==# SIGASP_RESTRICTING )
+				
+			{ state = SIGASP_STOP_AND_PROCEED; }
+		else 
+			{ state = SIGASP_CLEAR_2; }
+	}
+draw_state = def_draw_state (state);
+
+if ( ( state ==# SIGASP_STOP_AND_PROCEED ) && ( next_state ==# SIGASP_RESTRICTING ) )
+	{draw_state = 2;}
+
+SCRIPT PLK_sem3_S1
+
+	extern float	block_state ();
+	//extern float	route_set ();
+	extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	//extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	extern float	enabled;
+	//float			next_state;
+
+
+if (  !enabled ||
+	block_state() ==# BLOCK_OCCUPIED ||
+	next_sig_mr( SIGFN_NORMAL ) ==# SIGASP_CLEAR_1 ) 
+
+	{ state = SIGASP_STOP; }
+else
+	{ state = SIGASP_CLEAR_2; }
+
+draw_state = def_draw_state ( state );
+
+
+SCRIPT PLK_sem3_S1_P
+
+	extern float	block_state ();
+	//extern float	route_set ();
+	extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	//extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	extern float	enabled;
+	//float			next_state;
+
+
+if (  !enabled ||
+	block_state() ==# BLOCK_OCCUPIED ||
+	next_sig_mr( SIGFN_NORMAL ) ==# SIGASP_CLEAR_1 ) 
+
+	{ state = SIGASP_STOP; }
+else
+	{ state = SIGASP_CLEAR_2; }
+
+draw_state = def_draw_state ( state );
+
+
+SCRIPT PLK_sem3_S1_L
+
+	extern float	block_state ();
+	//extern float	route_set ();
+	extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	//extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	extern float	enabled;
+	//float			next_state;
+
+
+if (  !enabled ||
+	block_state() ==# BLOCK_OCCUPIED ||
+	next_sig_mr( SIGFN_NORMAL ) ==# SIGASP_CLEAR_1 ) 
+
+	{ state = SIGASP_STOP; }
+else
+	{ state = SIGASP_CLEAR_2; }
+
+draw_state = def_draw_state ( state );
+
+SCRIPT PLK_sem3_S2/S3/S4/S5
+
+	//extern float	block_state ();
+	//extern float	route_set ();
+	extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	//extern float	enabled;
+	extern float	this_sig_mr ();
+	float			next_state_norm;
+	float			next_state_dist;
+	float			this_signal;
+
+this_signal = this_sig_mr ( SIGFN_NORMAL );
+if ( this_signal ==# SIGASP_STOP  || 
+	this_signal ==# SIGASP_STOP_AND_PROCEED)
+	{
+	state = SIGASP_STOP;
+	}
+else
+	{
+	next_state_norm = next_sig_mr ( SIGFN_NORMAL );
+
+	if ( next_state_norm ==# SIGASP_STOP || next_state_norm ==# SIGASP_STOP_AND_PROCEED) 
+		{ state = SIGASP_APPROACH_1; }
+	else
+		{
+		if ( next_state_norm ==# SIGASP_APPROACH_1 ) 
+			{ state = SIGASP_APPROACH_2; 	}	
+		else
+			{
+			
+			if ( next_state_norm ==# SIGASP_APPROACH_2 )
+				{ state = SIGASP_APPROACH_3; }
+			else
+				{ state = SIGASP_CLEAR_2; }			
+
+			}
+
+		}
+
+	}
+
+
+draw_state = def_draw_state (state);
+
+SCRIPT PLK_sem3_S2/S3/S4/S5_P
+
+	//extern float	block_state ();
+	//extern float	route_set ();
+	extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	//extern float	enabled;
+	extern float	this_sig_mr ();
+	float			next_state_norm;
+	float			next_state_dist;
+	float			this_signal;
+
+this_signal = this_sig_mr ( SIGFN_NORMAL );
+if ( this_signal ==# SIGASP_STOP  || 
+	this_signal ==# SIGASP_STOP_AND_PROCEED)
+	{
+	state = SIGASP_STOP;
+	}
+else
+	{
+	next_state_norm = next_sig_mr ( SIGFN_NORMAL );
+
+	if ( next_state_norm ==# SIGASP_STOP || next_state_norm ==# SIGASP_STOP_AND_PROCEED) 
+		{ state = SIGASP_APPROACH_1; }
+	else
+		{
+		if ( next_state_norm ==# SIGASP_APPROACH_1 ) 
+			{ state = SIGASP_APPROACH_2; 	}	
+		else
+			{
+			
+			if ( next_state_norm ==# SIGASP_APPROACH_2 )
+				{ state = SIGASP_APPROACH_3; }
+			else
+				{ state = SIGASP_CLEAR_2; }			
+
+			}
+
+		}
+
+	}
+
+
+draw_state = def_draw_state (state);
+
+SCRIPT PLK_sem3_S2/S3/S4/S5_L
+
+	//extern float	block_state ();
+	//extern float	route_set ();
+	extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	//extern float	enabled;
+	extern float	this_sig_mr ();
+	float			next_state_norm;
+	float			next_state_dist;
+	float			this_signal;
+
+this_signal = this_sig_mr ( SIGFN_NORMAL );
+if ( this_signal ==# SIGASP_STOP  || 
+	this_signal ==# SIGASP_STOP_AND_PROCEED)
+	{
+	state = SIGASP_STOP;
+	}
+else
+	{
+	next_state_norm = next_sig_mr ( SIGFN_NORMAL );
+
+	if ( next_state_norm ==# SIGASP_STOP || next_state_norm ==# SIGASP_STOP_AND_PROCEED) 
+		{ state = SIGASP_APPROACH_1; }
+	else
+		{
+		if ( next_state_norm ==# SIGASP_APPROACH_1 ) 
+			{ state = SIGASP_APPROACH_2; 	}	
+		else
+			{
+			
+			if ( next_state_norm ==# SIGASP_APPROACH_2 )
+				{ state = SIGASP_APPROACH_3; }
+			else
+				{ state = SIGASP_CLEAR_2; }			
+
+			}
+
+		}
+
+	}
+
+
+draw_state = def_draw_state (state);
+
+SCRIPT PLK_sem4_S4/S5
+
+	//extern float	block_state ();
+	//extern float	route_set ();
+	extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	//extern float	enabled;
+	extern float	this_sig_mr ();
+	float			next_state_norm;
+	float			next_state_dist;
+	float			this_signal;
+
+this_signal = this_sig_mr ( SIGFN_NORMAL );
+if ( this_signal ==# SIGASP_STOP  || 
+	this_signal ==# SIGASP_STOP_AND_PROCEED)
+	{
+	state = SIGASP_STOP;
+	}
+else
+	{
+	next_state_norm = next_sig_mr ( SIGFN_NORMAL );
+			
+		if ( next_state_norm ==# SIGASP_STOP || 
+			next_state_norm ==# SIGASP_STOP_AND_PROCEED)
+			{ state = SIGASP_APPROACH_1; }
+		else
+			{ state = SIGASP_APPROACH_2; }			
+
+	
+	}
+
+draw_state = def_draw_state (state);
+
+SCRIPT PLK_sem4_S4/S5_w
+
+	//extern float	block_state ();
+	//extern float	route_set ();
+	extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	//extern float	enabled;
+	extern float	this_sig_mr ();
+	float			next_state_norm;
+	float			next_state_dist;
+	float			this_signal;
+
+this_signal = this_sig_mr ( SIGFN_NORMAL );
+if ( this_signal ==# SIGASP_STOP  || 
+	this_signal ==# SIGASP_STOP_AND_PROCEED)
+	{
+	state = SIGASP_STOP;
+	}
+else
+	{
+	next_state_norm = next_sig_mr ( SIGFN_NORMAL );
+			
+		if ( next_state_norm ==# SIGASP_STOP || 
+			next_state_norm ==# SIGASP_STOP_AND_PROCEED)
+			{ state = SIGASP_APPROACH_1; }
+		else
+			{ state = SIGASP_APPROACH_2; }			
+
+	
+	}
+
+draw_state = def_draw_state (state);
+
+SCRIPT PLK_sem4_S4/S5_P
+
+	//extern float	block_state ();
+	//extern float	route_set ();
+	extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	//extern float	enabled;
+	extern float	this_sig_mr ();
+	float			next_state_norm;
+	float			next_state_dist;
+	float			this_signal;
+
+this_signal = this_sig_mr ( SIGFN_NORMAL );
+if ( this_signal ==# SIGASP_STOP  || 
+	this_signal ==# SIGASP_STOP_AND_PROCEED)
+	{
+	state = SIGASP_STOP;
+	}
+else
+	{
+	next_state_norm = next_sig_mr ( SIGFN_NORMAL );
+			
+		if ( next_state_norm ==# SIGASP_STOP || 
+			next_state_norm ==# SIGASP_STOP_AND_PROCEED)
+			{ state = SIGASP_APPROACH_1; }
+		else
+			{ state = SIGASP_APPROACH_2; }			
+
+	
+	}
+
+draw_state = def_draw_state (state);
+
+SCRIPT PLK_sem4_S4/S5_L
+
+	//extern float	block_state ();
+	//extern float	route_set ();
+	extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	//extern float	enabled;
+	extern float	this_sig_mr ();
+	float			next_state_norm;
+	float			next_state_dist;
+	float			this_signal;
+
+this_signal = this_sig_mr ( SIGFN_NORMAL );
+if ( this_signal ==# SIGASP_STOP  || 
+	this_signal ==# SIGASP_STOP_AND_PROCEED)
+	{
+	state = SIGASP_STOP;
+	}
+else
+	{
+	next_state_norm = next_sig_mr ( SIGFN_NORMAL );
+			
+		if ( next_state_norm ==# SIGASP_STOP || 
+			next_state_norm ==# SIGASP_STOP_AND_PROCEED)
+			{ state = SIGASP_APPROACH_1; }
+		else
+			{ state = SIGASP_APPROACH_2; }			
+
+	
+	}
+
+draw_state = def_draw_state (state);
+
+SCRIPT PLK_sem4_S2/S3
+
+	//extern float	block_state ();
+	//extern float	route_set ();
+	extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	//extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	//extern float	enabled;
+	extern float	this_sig_mr ();
+	float			next_state_norm;
+	float			next_state_dist;
+	float			this_signal;
+
+this_signal = this_sig_mr ( SIGFN_NORMAL );
+if ( this_signal ==# SIGASP_STOP  || 
+	this_signal ==# SIGASP_STOP_AND_PROCEED)
+	{
+	state = SIGASP_STOP;
+	}
+else
+	{
+	next_state_norm = next_sig_mr ( SIGFN_NORMAL );
+			
+		if ( next_state_norm ==# SIGASP_APPROACH_2 )
+			{ state = SIGASP_APPROACH_3; }
+		else
+			{ state = SIGASP_CLEAR_2; }			
+
+	
+	}
+
+draw_state = def_draw_state (state);
+
+SCRIPT PLK_sem4_S2/S3_P
+
+	//extern float	block_state ();
+	//extern float	route_set ();
+	extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	//extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	//extern float	enabled;
+	extern float	this_sig_mr ();
+	float			next_state_norm;
+	float			next_state_dist;
+	float			this_signal;
+
+this_signal = this_sig_mr ( SIGFN_NORMAL );
+if ( this_signal ==# SIGASP_STOP  || 
+	this_signal ==# SIGASP_STOP_AND_PROCEED)
+	{
+	state = SIGASP_STOP;
+	}
+else
+	{
+	next_state_norm = next_sig_mr ( SIGFN_NORMAL );
+			
+		if ( next_state_norm ==# SIGASP_APPROACH_2 )
+			{ state = SIGASP_APPROACH_3; }
+		else
+			{ state = SIGASP_CLEAR_2; }			
+
+	
+	}
+
+draw_state = def_draw_state (state);
+
+SCRIPT PLK_sem4_S2/S3_L
+
+	//extern float	block_state ();
+	//extern float	route_set ();
+	extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	//extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	//extern float	enabled;
+	extern float	this_sig_mr ();
+	float			next_state_norm;
+	float			next_state_dist;
+	float			this_signal;
+
+this_signal = this_sig_mr ( SIGFN_NORMAL );
+if ( this_signal ==# SIGASP_STOP  || 
+	this_signal ==# SIGASP_STOP_AND_PROCEED)
+	{
+	state = SIGASP_STOP;
+	}
+else
+	{
+	next_state_norm = next_sig_mr ( SIGFN_NORMAL );
+			
+		if ( next_state_norm ==# SIGASP_APPROACH_2 )
+			{ state = SIGASP_APPROACH_3; }
+		else
+			{ state = SIGASP_CLEAR_2; }			
+
+	
+	}
+
+draw_state = def_draw_state (state);
+
+SCRIPT PLK_sem4_S2/S3w
+
+	//extern float	block_state ();
+	//extern float	route_set ();
+	extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	//extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	//extern float	enabled;
+	extern float	this_sig_mr ();
+	float			next_state_norm;
+	float			next_state_dist;
+	float			this_signal;
+
+this_signal = this_sig_mr ( SIGFN_NORMAL );
+if ( this_signal ==# SIGASP_STOP  || 
+	this_signal ==# SIGASP_STOP_AND_PROCEED)
+	{
+	state = SIGASP_STOP;
+	}
+else
+	{
+	next_state_norm = next_sig_mr ( SIGFN_NORMAL );
+			
+		if ( next_state_norm ==# SIGASP_APPROACH_2 )
+			{ state = SIGASP_APPROACH_3; }
+		else
+			{ state = SIGASP_CLEAR_2; }			
+
+	
+	}
+
+draw_state = def_draw_state (state);
+
+SCRIPT PLK_sem4_S2/S3n
+
+	//extern float	block_state ();
+	//extern float	route_set ();
+	extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	//extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	//extern float	enabled;
+	extern float	this_sig_mr ();
+	float			next_state_norm;
+	float			next_state_dist;
+	float			this_signal;
+
+this_signal = this_sig_mr ( SIGFN_NORMAL );
+if ( this_signal ==# SIGASP_STOP  || 
+	this_signal ==# SIGASP_STOP_AND_PROCEED)
+	{
+	state = SIGASP_STOP;
+	}
+else
+	{
+	next_state_norm = next_sig_mr ( SIGFN_NORMAL );
+			
+		if ( next_state_norm ==# SIGASP_APPROACH_2 )
+			{ state = SIGASP_APPROACH_3; }
+		else
+			{ state = SIGASP_CLEAR_2; }			
+
+	
+	}
+
+draw_state = def_draw_state (state);
+
+SCRIPT PLK_sem4_S1/Sz/Ms2
+
+	extern float	block_state ();
+	extern float	route_set ();
+	extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	extern float	enabled;
+	//extern float	this_sig_mr ();
+	float			next_state;
+	//float		next_state_dist;
+	float			straight;
+	
+
+
+next_state = next_sig_mr ( SIGFN_NORMAL );
+if (  !enabled ||
+	block_state() ==# BLOCK_OCCUPIED ||
+	next_state ==# SIGASP_CLEAR_1 )
+
+	{ state = SIGASP_STOP; }
+
+else
+	{
+			
+	if ( sig_feature ( SIGFEAT_USER1 ) )
+		{ straight = route_set (); }
+	else
+		{straight = 1;}
+	if ( !straight ||
+		next_state ==# SIGASP_RESTRICTING )
+		
+			{ state = SIGASP_STOP_AND_PROCEED; }
+			else 
+			{ state = SIGASP_CLEAR_2; }
+	}
+draw_state = def_draw_state (state);
+
+if ( ( state ==# SIGASP_STOP_AND_PROCEED ) && ( next_state ==# SIGASP_RESTRICTING ) )
+	{draw_state = 2;}
+
+SCRIPT PLK_sem4_S1/Sz/Ms2_P
+
+	extern float	block_state ();
+	extern float	route_set ();
+	extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	extern float	enabled;
+	//extern float	this_sig_mr ();
+	float			next_state;
+	//float		next_state_dist;
+	float			straight;
+	
+
+
+next_state = next_sig_mr ( SIGFN_NORMAL );
+if (  !enabled ||
+	block_state() ==# BLOCK_OCCUPIED ||
+	next_state ==# SIGASP_CLEAR_1 )
+
+	{ state = SIGASP_STOP; }
+
+else
+	{
+			
+	if ( sig_feature ( SIGFEAT_USER1 ) )
+		{ straight = route_set (); }
+	else
+		{straight = 1;}
+	if ( !straight ||
+		next_state ==# SIGASP_RESTRICTING )
+		
+			{ state = SIGASP_STOP_AND_PROCEED; }
+			else 
+			{ state = SIGASP_CLEAR_2; }
+	}
+draw_state = def_draw_state (state);
+
+if ( ( state ==# SIGASP_STOP_AND_PROCEED ) && ( next_state ==# SIGASP_RESTRICTING ) )
+	{draw_state = 2;}
+
+SCRIPT PLK_sem4_S1/Sz/Ms2_L
+
+	extern float	block_state ();
+	extern float	route_set ();
+	extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	extern float	enabled;
+	//extern float	this_sig_mr ();
+	float			next_state;
+	//float		next_state_dist;
+	float			straight;
+	
+
+
+next_state = next_sig_mr ( SIGFN_NORMAL );
+if (  !enabled ||
+	block_state() ==# BLOCK_OCCUPIED ||
+	next_state ==# SIGASP_CLEAR_1 )
+
+	{ state = SIGASP_STOP; }
+
+else
+	{
+			
+	if ( sig_feature ( SIGFEAT_USER1 ) )
+		{ straight = route_set (); }
+	else
+		{straight = 1;}
+	if ( !straight ||
+		next_state ==# SIGASP_RESTRICTING )
+		
+			{ state = SIGASP_STOP_AND_PROCEED; }
+			else 
+			{ state = SIGASP_CLEAR_2; }
+	}
+draw_state = def_draw_state (state);
+
+if ( ( state ==# SIGASP_STOP_AND_PROCEED ) && ( next_state ==# SIGASP_RESTRICTING ) )
+	{draw_state = 2;}
+
+SCRIPT PLK_sem4_S2/S3/S4/S5
+
+	//extern float	block_state ();
+	//extern float	route_set ();
+	extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	//extern float	enabled;
+	extern float	this_sig_mr ();
+	float			next_state_norm;
+	float			next_state_dist;
+	float			this_signal;
+
+this_signal = this_sig_mr ( SIGFN_NORMAL );
+if ( this_signal ==# SIGASP_STOP  || 
+	this_signal ==# SIGASP_STOP_AND_PROCEED)
+	{
+	state = SIGASP_STOP;
+	}
+else
+	{
+	next_state_norm = next_sig_mr ( SIGFN_NORMAL );
+
+	if ( next_state_norm ==# SIGASP_STOP || next_state_norm ==# SIGASP_STOP_AND_PROCEED) 
+		{ state = SIGASP_APPROACH_1; }
+	else
+		{
+		if ( next_state_norm ==# SIGASP_APPROACH_1 ) 
+			{ state = SIGASP_APPROACH_2; 	}	
+		else
+			{
+			
+			if ( next_state_norm ==# SIGASP_APPROACH_2 )
+				{ state = SIGASP_APPROACH_3; }
+			else
+				{ state = SIGASP_CLEAR_2; }			
+
+			}
+
+		}
+
+	}
+
+
+draw_state = def_draw_state (state);
+
+SCRIPT PLK_sem4_S2/S3/S4/S5_P
+
+	//extern float	block_state ();
+	//extern float	route_set ();
+	extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	//extern float	enabled;
+	extern float	this_sig_mr ();
+	float			next_state_norm;
+	float			next_state_dist;
+	float			this_signal;
+
+this_signal = this_sig_mr ( SIGFN_NORMAL );
+if ( this_signal ==# SIGASP_STOP  || 
+	this_signal ==# SIGASP_STOP_AND_PROCEED)
+	{
+	state = SIGASP_STOP;
+	}
+else
+	{
+	next_state_norm = next_sig_mr ( SIGFN_NORMAL );
+
+	if ( next_state_norm ==# SIGASP_STOP || next_state_norm ==# SIGASP_STOP_AND_PROCEED) 
+		{ state = SIGASP_APPROACH_1; }
+	else
+		{
+		if ( next_state_norm ==# SIGASP_APPROACH_1 ) 
+			{ state = SIGASP_APPROACH_2; 	}	
+		else
+			{
+			
+			if ( next_state_norm ==# SIGASP_APPROACH_2 )
+				{ state = SIGASP_APPROACH_3; }
+			else
+				{ state = SIGASP_CLEAR_2; }			
+
+			}
+
+		}
+
+	}
+
+
+draw_state = def_draw_state (state);
+
+SCRIPT PLK_sem4_S2/S3/S4/S5_L
+
+	//extern float	block_state ();
+	//extern float	route_set ();
+	extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	//extern float	enabled;
+	extern float	this_sig_mr ();
+	float			next_state_norm;
+	float			next_state_dist;
+	float			this_signal;
+
+this_signal = this_sig_mr ( SIGFN_NORMAL );
+if ( this_signal ==# SIGASP_STOP  || 
+	this_signal ==# SIGASP_STOP_AND_PROCEED)
+	{
+	state = SIGASP_STOP;
+	}
+else
+	{
+	next_state_norm = next_sig_mr ( SIGFN_NORMAL );
+
+	if ( next_state_norm ==# SIGASP_STOP || next_state_norm ==# SIGASP_STOP_AND_PROCEED) 
+		{ state = SIGASP_APPROACH_1; }
+	else
+		{
+		if ( next_state_norm ==# SIGASP_APPROACH_1 ) 
+			{ state = SIGASP_APPROACH_2; 	}	
+		else
+			{
+			
+			if ( next_state_norm ==# SIGASP_APPROACH_2 )
+				{ state = SIGASP_APPROACH_3; }
+			else
+				{ state = SIGASP_CLEAR_2; }			
+
+			}
+
+		}
+
+	}
+
+
+draw_state = def_draw_state (state);
+
+SCRIPT PLK_sem5_S1/S5/Sz/Ms2
+
+	extern float	block_state ();
+	extern float	route_set ();
+	extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	extern float	enabled;
+	//extern float	this_sig_mr ();
+	float			next_state;
+	//float		next_state_dist;
+	float			straight;
+	
+
+
+next_state = next_sig_mr ( SIGFN_NORMAL );
+if (  !enabled ||
+	block_state() ==# BLOCK_OCCUPIED  ||
+	next_state ==# SIGASP_CLEAR_1 ) 
+
+	{ state = SIGASP_STOP; }
+
+else
+	{
+	if ( sig_feature ( SIGFEAT_USER4 ) ||
+	    next_state ==# SIGASP_RESTRICTING )	
+		{ state = SIGASP_STOP_AND_PROCEED; }
+		else
+			{
+			if ( sig_feature ( SIGFEAT_USER1 ) )
+				{ straight = route_set (); }
+			else
+				{straight = 1;}
+
+			if ( !straight ||
+			sig_feature ( SIGFEAT_USER2 )  ) 
+				{ state = SIGASP_APPROACH_1; }
+				
+			else 
+				{ state = SIGASP_CLEAR_2; }
+			}
+	if ( !route_set() && sig_feature ( SIGFEAT_USER3 )  ) {state = SIGASP_STOP_AND_PROCEED; }
+	}
+
+draw_state = def_draw_state (state);
+
+if ( ( state ==# SIGASP_STOP_AND_PROCEED ) && ( next_state ==# SIGASP_RESTRICTING ) )
+	{draw_state = 2;}
+
+SCRIPT PLK_sem5_S1/S5/Sz/Ms2_P
+
+	extern float	block_state ();
+	extern float	route_set ();
+	extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	extern float	enabled;
+	//extern float	this_sig_mr ();
+	float			next_state;
+	//float		next_state_dist;
+	float			straight;
+	
+
+
+next_state = next_sig_mr ( SIGFN_NORMAL );
+if (  !enabled ||
+	block_state() ==# BLOCK_OCCUPIED  ||
+	next_state ==# SIGASP_CLEAR_1 )
+
+	{ state = SIGASP_STOP; }
+
+else
+	{
+	if ( sig_feature ( SIGFEAT_USER4 ) ||
+	    next_state ==# SIGASP_RESTRICTING )	
+		{ state = SIGASP_STOP_AND_PROCEED; }
+		else
+			{
+			if ( sig_feature ( SIGFEAT_USER1 ) )
+				{ straight = route_set (); }
+			else
+				{straight = 1;}
+
+			if ( !straight ||
+			sig_feature ( SIGFEAT_USER2 )  ) 
+				{ state = SIGASP_APPROACH_1; }
+				
+			else 
+				{ state = SIGASP_CLEAR_2; }
+			}
+	if ( !route_set() && sig_feature ( SIGFEAT_USER3 )  ) {state = SIGASP_STOP_AND_PROCEED; }
+	}
+
+draw_state = def_draw_state (state);
+
+if ( ( state ==# SIGASP_STOP_AND_PROCEED ) && ( next_state ==# SIGASP_RESTRICTING ) )
+	{draw_state = 2;}
+
+SCRIPT PLK_sem5_S1/S5/Sz/Ms2_L
+
+	extern float	block_state ();
+	extern float	route_set ();
+	extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	extern float	enabled;
+	//extern float	this_sig_mr ();
+	float			next_state;
+	//float		next_state_dist;
+	float			straight;
+	
+
+
+next_state = next_sig_mr ( SIGFN_NORMAL );
+if (  !enabled ||
+	block_state() ==# BLOCK_OCCUPIED  ||
+	next_state ==# SIGASP_CLEAR_1 ) 
+
+	{ state = SIGASP_STOP; }
+
+else
+	{
+	if ( sig_feature ( SIGFEAT_USER4 ) ||
+	    next_state ==# SIGASP_RESTRICTING )	
+		{ state = SIGASP_STOP_AND_PROCEED; }
+		else
+			{
+			if ( sig_feature ( SIGFEAT_USER1 ) )
+				{ straight = route_set (); }
+			else
+				{straight = 1;}
+
+			if ( !straight ||
+			sig_feature ( SIGFEAT_USER2 )  )
+				{ state = SIGASP_APPROACH_1; }
+				
+			else 
+				{ state = SIGASP_CLEAR_2; }
+			}
+	if ( !route_set() && sig_feature ( SIGFEAT_USER3 )  ) {state = SIGASP_STOP_AND_PROCEED; }
+	}
+
+draw_state = def_draw_state (state);
+
+if ( ( state ==# SIGASP_STOP_AND_PROCEED ) && ( next_state ==# SIGASP_RESTRICTING ) )
+	{draw_state = 2;}
+
+SCRIPT PLK_sem5_S1/S5/Sz/Ms2w
+
+	extern float	block_state ();
+	extern float	route_set ();
+	extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	extern float	enabled;
+	//extern float	this_sig_mr ();
+	float			next_state;
+	//float		next_state_dist;
+	float			straight;
+	
+
+
+next_state = next_sig_mr ( SIGFN_NORMAL );
+if (  !enabled ||
+	block_state() ==# BLOCK_OCCUPIED  ||
+	next_state ==# SIGASP_CLEAR_1 )
+
+	{ state = SIGASP_STOP; }
+
+else
+	{
+	if ( sig_feature ( SIGFEAT_USER4 ) ||
+	    next_state ==# SIGASP_RESTRICTING )	
+		{ state = SIGASP_STOP_AND_PROCEED; }
+		else
+			{
+			if ( sig_feature ( SIGFEAT_USER1 ) )
+				{ straight = route_set (); }
+			else
+				{straight = 1;}
+
+			if ( !straight ||
+			sig_feature ( SIGFEAT_USER2 )  ) 
+				{ state = SIGASP_APPROACH_1; }
+				
+			else 
+				{ state = SIGASP_CLEAR_2; }
+			}
+	if ( !route_set() && sig_feature ( SIGFEAT_USER3 )  ) {state = SIGASP_STOP_AND_PROCEED; }
+	}
+
+draw_state = def_draw_state (state);
+
+if ( ( state ==# SIGASP_STOP_AND_PROCEED ) && ( next_state ==# SIGASP_RESTRICTING ) )
+	{draw_state = 2;}
+
+SCRIPT PLK_sem5_S1/S5/Sz/Ms2n
+
+	extern float	block_state ();
+	extern float	route_set ();
+	extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	extern float	enabled;
+	//extern float	this_sig_mr ();
+	float			next_state;
+	//float		next_state_dist;
+	float			straight;
+	
+
+
+next_state = next_sig_mr ( SIGFN_NORMAL );
+if (  !enabled ||
+	block_state() ==# BLOCK_OCCUPIED  ||
+	next_state ==# SIGASP_CLEAR_1 ) 
+
+	{ state = SIGASP_STOP; }
+
+else
+	{
+	if ( sig_feature ( SIGFEAT_USER4 ) ||
+	    next_state ==# SIGASP_RESTRICTING )	
+		{ state = SIGASP_STOP_AND_PROCEED; }
+		else
+			{
+			if ( sig_feature ( SIGFEAT_USER1 ) )
+				{ straight = route_set (); }
+			else
+				{straight = 1;}
+
+			if ( !straight ||
+			sig_feature ( SIGFEAT_USER2 )  ) 
+				{ state = SIGASP_APPROACH_1; }
+				
+			else 
+				{ state = SIGASP_CLEAR_2; }
+			}
+	if ( !route_set() && sig_feature ( SIGFEAT_USER3 )  ) {state = SIGASP_STOP_AND_PROCEED; }
+	}
+
+draw_state = def_draw_state (state);
+
+if ( ( state ==# SIGASP_STOP_AND_PROCEED ) && ( next_state ==# SIGASP_RESTRICTING ) )
+	{draw_state = 2;}
+
+SCRIPT PLK_sem5_S1/S10a/Sz/Ms2
+
+	extern float	block_state ();
+	extern float	route_set ();
+	extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	extern float	enabled;
+	//extern float	this_sig_mr ();
+	float			next_state;
+	//float		next_state_dist;
+	float			straight;
+	
+
+
+next_state = next_sig_mr ( SIGFN_NORMAL );
+if (  !enabled ||
+	block_state() ==# BLOCK_OCCUPIED ||
+	next_state ==# SIGASP_CLEAR_1 )
+
+	{ state = SIGASP_STOP; }
+
+else
+	{
+	if ( sig_feature ( SIGFEAT_USER4 ) ||
+		next_state ==# SIGASP_RESTRICTING )
+		{ state = SIGASP_STOP_AND_PROCEED; }
+		else
+			{
+			if ( sig_feature ( SIGFEAT_USER1 ) )
+				{ straight = route_set (); }
+			else
+				{straight = 1;}
+
+			if ( !straight ||
+			sig_feature ( SIGFEAT_USER2 )  ) 
+				{ state = SIGASP_APPROACH_1; }
+				
+			else 
+				{ state = SIGASP_CLEAR_2; }
+			}
+	if ( !route_set() && sig_feature ( SIGFEAT_USER3 )  ) {state = SIGASP_STOP_AND_PROCEED; }
+	}
+
+draw_state = def_draw_state (state);
+
+if ( ( state ==# SIGASP_STOP_AND_PROCEED ) && ( next_state ==# SIGASP_RESTRICTING ) )
+	{draw_state = 2;}
+
+SCRIPT PLK_sem5_S1/S10a/Sz/Ms2_P
+
+	extern float	block_state ();
+	extern float	route_set ();
+	extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	extern float	enabled;
+	//extern float	this_sig_mr ();
+	float			next_state;
+	//float		next_state_dist;
+	float			straight;
+	
+
+
+next_state = next_sig_mr ( SIGFN_NORMAL );
+if (  !enabled ||
+	block_state() ==# BLOCK_OCCUPIED ||
+	next_state ==# SIGASP_CLEAR_1 ) 
+
+	{ state = SIGASP_STOP; }
+
+else
+	{
+	if ( sig_feature ( SIGFEAT_USER4 ) ||
+		next_state ==# SIGASP_RESTRICTING )
+		{ state = SIGASP_STOP_AND_PROCEED; }
+		else
+			{
+			if ( sig_feature ( SIGFEAT_USER1 ) )
+				{ straight = route_set (); }
+			else
+				{straight = 1;}
+
+			if ( !straight ||
+			sig_feature ( SIGFEAT_USER2 )  ) 
+				{ state = SIGASP_APPROACH_1; }
+				
+			else 
+				{ state = SIGASP_CLEAR_2; }
+			}
+	if ( !route_set() && sig_feature ( SIGFEAT_USER3 )  ) {state = SIGASP_STOP_AND_PROCEED; }
+	}
+
+draw_state = def_draw_state (state);
+
+if ( ( state ==# SIGASP_STOP_AND_PROCEED ) && ( next_state ==# SIGASP_RESTRICTING ) )
+	{draw_state = 2;}
+
+SCRIPT PLK_sem5_S1/S10a/Sz/Ms2_L
+
+	extern float	block_state ();
+	extern float	route_set ();
+	extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	extern float	enabled;
+	//extern float	this_sig_mr ();
+	float			next_state;
+	//float		next_state_dist;
+	float			straight;
+	
+
+
+next_state = next_sig_mr ( SIGFN_NORMAL );
+if (  !enabled ||
+	block_state() ==# BLOCK_OCCUPIED ||
+	next_state ==# SIGASP_CLEAR_1 )
+
+	{ state = SIGASP_STOP; }
+
+else
+	{
+	if ( sig_feature ( SIGFEAT_USER4 ) ||
+		next_state ==# SIGASP_RESTRICTING )
+		{ state = SIGASP_STOP_AND_PROCEED; }
+		else
+			{
+			if ( sig_feature ( SIGFEAT_USER1 ) )
+				{ straight = route_set (); }
+			else
+				{straight = 1;}
+
+			if ( !straight ||
+			sig_feature ( SIGFEAT_USER2 )  ) 
+				{ state = SIGASP_APPROACH_1; }
+				
+			else 
+				{ state = SIGASP_CLEAR_2; }
+			}
+	if ( !route_set() && sig_feature ( SIGFEAT_USER3 )  ) {state = SIGASP_STOP_AND_PROCEED; }
+	}
+
+draw_state = def_draw_state (state);
+
+if ( ( state ==# SIGASP_STOP_AND_PROCEED ) && ( next_state ==# SIGASP_RESTRICTING ) )
+	{draw_state = 2;}
+
+SCRIPT PLK_sem5_S1/S10a/Sz/Ms2w
+
+	extern float	block_state ();
+	extern float	route_set ();
+	extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	extern float	enabled;
+	//extern float	this_sig_mr ();
+	float			next_state;
+	//float		next_state_dist;
+	float			straight;
+	
+
+
+next_state = next_sig_mr ( SIGFN_NORMAL );
+if (  !enabled ||
+	block_state() ==# BLOCK_OCCUPIED ||
+	next_state ==# SIGASP_CLEAR_1 ) 
+
+	{ state = SIGASP_STOP; }
+
+else
+	{
+	if ( sig_feature ( SIGFEAT_USER4 ) ||
+		next_state ==# SIGASP_RESTRICTING )
+		{ state = SIGASP_STOP_AND_PROCEED; }
+		else
+			{
+			if ( sig_feature ( SIGFEAT_USER1 ) )
+				{ straight = route_set (); }
+			else
+				{straight = 1;}
+
+			if ( !straight ||
+			sig_feature ( SIGFEAT_USER2 )  ) 
+				{ state = SIGASP_APPROACH_1; }
+				
+			else 
+				{ state = SIGASP_CLEAR_2; }
+			}
+	if ( !route_set() && sig_feature ( SIGFEAT_USER3 )  ) {state = SIGASP_STOP_AND_PROCEED; }
+	}
+
+draw_state = def_draw_state (state);
+
+if ( ( state ==# SIGASP_STOP_AND_PROCEED ) && ( next_state ==# SIGASP_RESTRICTING ) )
+	{draw_state = 2;}
+
+SCRIPT PLK_sem5_S1/S6/Sz/Ms2
+
+	extern float	block_state ();
+	extern float	route_set ();
+	extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	extern float	enabled;
+	//extern float	this_sig_mr ();
+	float			next_state;
+	//float		next_state_dist;
+	float			straight;
+	
+
+
+next_state = next_sig_mr ( SIGFN_NORMAL );
+if (  !enabled ||
+	block_state() ==# BLOCK_OCCUPIED ||
+	next_state ==# SIGASP_CLEAR_1 ) 
+
+	{ state = SIGASP_STOP; }
+
+else
+	{
+	if ( sig_feature ( SIGFEAT_USER4 ) ||
+		next_state ==# SIGASP_RESTRICTING )
+		{ state = SIGASP_STOP_AND_PROCEED; }
+		else
+			{
+			if ( sig_feature ( SIGFEAT_USER1 ) )
+				{ straight = route_set (); }
+			else
+				{straight = 1;}
+
+			if ( !straight ||
+			sig_feature ( SIGFEAT_USER2 )  )
+				{ state = SIGASP_APPROACH_2; }
+				
+			else 
+				{ state = SIGASP_CLEAR_2; }
+			}
+	if ( !route_set() && sig_feature ( SIGFEAT_USER3 )  ) {state = SIGASP_STOP_AND_PROCEED; }
+	}
+
+draw_state = def_draw_state (state);
+
+if ( ( state ==# SIGASP_STOP_AND_PROCEED ) && ( next_state ==# SIGASP_RESTRICTING ) )
+	{draw_state = 2;}
+
+SCRIPT PLK_sem5_S1/S6/Sz/Ms2_P
+
+	extern float	block_state ();
+	extern float	route_set ();
+	extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	extern float	enabled;
+	//extern float	this_sig_mr ();
+	float			next_state;
+	//float		next_state_dist;
+	float			straight;
+	
+
+
+next_state = next_sig_mr ( SIGFN_NORMAL );
+if (  !enabled ||
+	block_state() ==# BLOCK_OCCUPIED ||
+	next_state ==# SIGASP_CLEAR_1 ) 
+
+	{ state = SIGASP_STOP; }
+
+else
+	{
+	if ( sig_feature ( SIGFEAT_USER4 ) ||
+		next_state ==# SIGASP_RESTRICTING )
+		{ state = SIGASP_STOP_AND_PROCEED; }
+		else
+			{
+			if ( sig_feature ( SIGFEAT_USER1 ) )
+				{ straight = route_set (); }
+			else
+				{straight = 1;}
+
+			if ( !straight ||
+			sig_feature ( SIGFEAT_USER2 )  ) 
+				{ state = SIGASP_APPROACH_2; }
+				
+			else 
+				{ state = SIGASP_CLEAR_2; }
+			}
+	if ( !route_set() && sig_feature ( SIGFEAT_USER3 )  ) {state = SIGASP_STOP_AND_PROCEED; }
+	}
+
+draw_state = def_draw_state (state);
+
+if ( ( state ==# SIGASP_STOP_AND_PROCEED ) && ( next_state ==# SIGASP_RESTRICTING ) )
+	{draw_state = 2;}
+
+SCRIPT PLK_sem5_S1/S6/Sz/Ms2_L
+
+	extern float	block_state ();
+	extern float	route_set ();
+	extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	extern float	enabled;
+	//extern float	this_sig_mr ();
+	float			next_state;
+	//float		next_state_dist;
+	float			straight;
+	
+
+
+next_state = next_sig_mr ( SIGFN_NORMAL );
+if (  !enabled ||
+	block_state() ==# BLOCK_OCCUPIED ||
+	next_state ==# SIGASP_CLEAR_1 ) 
+
+	{ state = SIGASP_STOP; }
+
+else
+	{
+	if ( sig_feature ( SIGFEAT_USER4 ) ||
+		next_state ==# SIGASP_RESTRICTING )
+		{ state = SIGASP_STOP_AND_PROCEED; }
+		else
+			{
+			if ( sig_feature ( SIGFEAT_USER1 ) )
+				{ straight = route_set (); }
+			else
+				{straight = 1;}
+
+			if ( !straight ||
+			sig_feature ( SIGFEAT_USER2 )  ) 
+				{ state = SIGASP_APPROACH_2; }
+				
+			else 
+				{ state = SIGASP_CLEAR_2; }
+			}
+	if ( !route_set() && sig_feature ( SIGFEAT_USER3 )  ) {state = SIGASP_STOP_AND_PROCEED; }
+	}
+
+draw_state = def_draw_state (state);
+
+if ( ( state ==# SIGASP_STOP_AND_PROCEED ) && ( next_state ==# SIGASP_RESTRICTING ) )
+	{draw_state = 2;}
+
+SCRIPT PLK_sem5_S1/S6/Sz/Ms2w
+
+	extern float	block_state ();
+	extern float	route_set ();
+	extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	extern float	enabled;
+	//extern float	this_sig_mr ();
+	float			next_state;
+	//float		next_state_dist;
+	float			straight;
+	
+
+
+next_state = next_sig_mr ( SIGFN_NORMAL );
+if (  !enabled ||
+	block_state() ==# BLOCK_OCCUPIED ||
+	next_state ==# SIGASP_CLEAR_1 )
+
+	{ state = SIGASP_STOP; }
+
+else
+	{
+	if ( sig_feature ( SIGFEAT_USER4 ) ||
+		next_state ==# SIGASP_RESTRICTING )
+		{ state = SIGASP_STOP_AND_PROCEED; }
+		else
+			{
+			if ( sig_feature ( SIGFEAT_USER1 ) )
+				{ straight = route_set (); }
+			else
+				{straight = 1;}
+
+			if ( !straight ||
+			sig_feature ( SIGFEAT_USER2 )  ) 
+				{ state = SIGASP_APPROACH_2; }
+				
+			else 
+				{ state = SIGASP_CLEAR_2; }
+			}
+	if ( !route_set() && sig_feature ( SIGFEAT_USER3 )  ) {state = SIGASP_STOP_AND_PROCEED; }
+	}
+
+draw_state = def_draw_state (state);
+
+if ( ( state ==# SIGASP_STOP_AND_PROCEED ) && ( next_state ==# SIGASP_RESTRICTING ) )
+	{draw_state = 2;}
+
+SCRIPT PLK_sem5_S2/S3/S4/S5
+
+	//extern float	block_state ();
+	//extern float	route_set ();
+	extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	//extern float	enabled;
+	extern float	this_sig_mr ();
+	float			next_state_norm;
+	float			next_state_dist;
+	float			this_signal;
+
+this_signal = this_sig_mr ( SIGFN_NORMAL );
+if ( this_signal ==# SIGASP_STOP  || 
+	this_signal ==# SIGASP_STOP_AND_PROCEED)
+	{
+	state = SIGASP_STOP;
+	}
+else
+	{
+	next_state_norm = next_sig_mr ( SIGFN_NORMAL );
+
+	if ( next_state_norm ==# SIGASP_STOP || next_state_norm ==# SIGASP_STOP_AND_PROCEED) 
+		{ state = SIGASP_APPROACH_1; }
+	else
+		{
+		if ( next_state_norm ==# SIGASP_APPROACH_1 ) 
+			{ state = SIGASP_APPROACH_2; 	}	
+		else
+			{
+			
+			if ( next_state_norm ==# SIGASP_APPROACH_2 )
+				{ state = SIGASP_APPROACH_3; }
+			else
+				{ state = SIGASP_CLEAR_2; }			
+
+			}
+
+		}
+
+	}
+
+
+draw_state = def_draw_state (state);
+
+SCRIPT PLK_sem5_S2/S3/S4/S5_P
+
+	//extern float	block_state ();
+	//extern float	route_set ();
+	extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	//extern float	enabled;
+	extern float	this_sig_mr ();
+	float			next_state_norm;
+	float			next_state_dist;
+	float			this_signal;
+
+this_signal = this_sig_mr ( SIGFN_NORMAL );
+if ( this_signal ==# SIGASP_STOP  || 
+	this_signal ==# SIGASP_STOP_AND_PROCEED)
+	{
+	state = SIGASP_STOP;
+	}
+else
+	{
+	next_state_norm = next_sig_mr ( SIGFN_NORMAL );
+
+	if ( next_state_norm ==# SIGASP_STOP || next_state_norm ==# SIGASP_STOP_AND_PROCEED) 
+		{ state = SIGASP_APPROACH_1; }
+	else
+		{
+		if ( next_state_norm ==# SIGASP_APPROACH_1 ) 
+			{ state = SIGASP_APPROACH_2; 	}	
+		else
+			{
+			
+			if ( next_state_norm ==# SIGASP_APPROACH_2 )
+				{ state = SIGASP_APPROACH_3; }
+			else
+				{ state = SIGASP_CLEAR_2; }			
+
+			}
+
+		}
+
+	}
+
+
+draw_state = def_draw_state (state);
+
+SCRIPT PLK_sem5_S2/S3/S4/S5_L
+
+	//extern float	block_state ();
+	//extern float	route_set ();
+	extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	//extern float	enabled;
+	extern float	this_sig_mr ();
+	float			next_state_norm;
+	float			next_state_dist;
+	float			this_signal;
+
+this_signal = this_sig_mr ( SIGFN_NORMAL );
+if ( this_signal ==# SIGASP_STOP  || 
+	this_signal ==# SIGASP_STOP_AND_PROCEED)
+	{
+	state = SIGASP_STOP;
+	}
+else
+	{
+	next_state_norm = next_sig_mr ( SIGFN_NORMAL );
+
+	if ( next_state_norm ==# SIGASP_STOP || next_state_norm ==# SIGASP_STOP_AND_PROCEED) 
+		{ state = SIGASP_APPROACH_1; }
+	else
+		{
+		if ( next_state_norm ==# SIGASP_APPROACH_1 ) 
+			{ state = SIGASP_APPROACH_2; 	}	
+		else
+			{
+			
+			if ( next_state_norm ==# SIGASP_APPROACH_2 )
+				{ state = SIGASP_APPROACH_3; }
+			else
+				{ state = SIGASP_CLEAR_2; }			
+
+			}
+
+		}
+
+	}
+
+
+draw_state = def_draw_state (state);
+
+SCRIPT PLK_sem5_S2/S3/S4/S5w
+
+	//extern float	block_state ();
+	//extern float	route_set ();
+	extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	//extern float	enabled;
+	extern float	this_sig_mr ();
+	float			next_state_norm;
+	float			next_state_dist;
+	float			this_signal;
+
+this_signal = this_sig_mr ( SIGFN_NORMAL );
+if ( this_signal ==# SIGASP_STOP  || 
+	this_signal ==# SIGASP_STOP_AND_PROCEED)
+	{
+	state = SIGASP_STOP;
+	}
+else
+	{
+	next_state_norm = next_sig_mr ( SIGFN_NORMAL );
+
+	if ( next_state_norm ==# SIGASP_STOP || next_state_norm ==# SIGASP_STOP_AND_PROCEED) 
+		{ state = SIGASP_APPROACH_1; }
+	else
+		{
+		if ( next_state_norm ==# SIGASP_APPROACH_1 ) 
+			{ state = SIGASP_APPROACH_2; 	}	
+		else
+			{
+			
+			if ( next_state_norm ==# SIGASP_APPROACH_2 )
+				{ state = SIGASP_APPROACH_3; }
+			else
+				{ state = SIGASP_CLEAR_2; }			
+
+			}
+
+		}
+
+	}
+
+
+draw_state = def_draw_state (state);
+
+SCRIPT PLK_sem5_S2/S3/S4/S5n
+
+	//extern float	block_state ();
+	//extern float	route_set ();
+	extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	//extern float	enabled;
+	extern float	this_sig_mr ();
+	float			next_state_norm;
+	float			next_state_dist;
+	float			this_signal;
+
+this_signal = this_sig_mr ( SIGFN_NORMAL );
+if ( this_signal ==# SIGASP_STOP  || 
+	this_signal ==# SIGASP_STOP_AND_PROCEED)
+	{
+	state = SIGASP_STOP;
+	}
+else
+	{
+	next_state_norm = next_sig_mr ( SIGFN_NORMAL );
+
+	if ( next_state_norm ==# SIGASP_STOP || next_state_norm ==# SIGASP_STOP_AND_PROCEED) 
+		{ state = SIGASP_APPROACH_1; }
+	else
+		{
+		if ( next_state_norm ==# SIGASP_APPROACH_1 ) 
+			{ state = SIGASP_APPROACH_2; 	}	
+		else
+			{
+			
+			if ( next_state_norm ==# SIGASP_APPROACH_2 )
+				{ state = SIGASP_APPROACH_3; }
+			else
+				{ state = SIGASP_CLEAR_2; }			
+
+			}
+
+		}
+
+	}
+
+
+draw_state = def_draw_state (state);
+
+SCRIPT PAS_100
+
+	//extern float	block_state ();
+	//extern float	route_set ();
+	//extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	//extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	//extern float	enabled;
+	extern float	this_sig_mr ();
+	//float			next_state;
+	//float			next_state_dist;
+	//float			this_signal;
+
+if ( this_sig_mr( SIGFN_NORMAL ) ==# SIGASP_APPROACH_2 )
+	{ state = SIGASP_CLEAR_1; }
+else
+	{
+	state = SIGASP_CLEAR_2;
+	}
+
+draw_state = def_draw_state (state);
+
+SCRIPT PAS_100w
+
+	//extern float	block_state ();
+	//extern float	route_set ();
+	//extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	//extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	//extern float	enabled;
+	extern float	this_sig_mr ();
+	//float			next_state;
+	//float			next_state_dist;
+	//float			this_signal;
+
+if ( this_sig_mr( SIGFN_NORMAL ) ==# SIGASP_APPROACH_2 )
+	{ state = SIGASP_CLEAR_1; }
+else
+	{
+	state = SIGASP_CLEAR_2;
+	}
+
+draw_state = def_draw_state (state);
+
+SCRIPT PAS_100_P
+
+	//extern float	block_state ();
+	//extern float	route_set ();
+	//extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	//extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	//extern float	enabled;
+	extern float	this_sig_mr ();
+	//float			next_state;
+	//float			next_state_dist;
+	//float			this_signal;
+
+if ( this_sig_mr( SIGFN_NORMAL ) ==# SIGASP_APPROACH_2 )
+	{ state = SIGASP_CLEAR_1; }
+else
+	{
+	state = SIGASP_CLEAR_2;
+	}
+
+draw_state = def_draw_state (state);
+
+SCRIPT PAS_100_L
+
+	//extern float	block_state ();
+	//extern float	route_set ();
+	//extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	//extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	//extern float	enabled;
+	extern float	this_sig_mr ();
+	//float			next_state;
+	//float			next_state_dist;
+	//float			this_signal;
+
+if ( this_sig_mr( SIGFN_NORMAL ) ==# SIGASP_APPROACH_2 )
+	{ state = SIGASP_CLEAR_1; }
+else
+	{
+	state = SIGASP_CLEAR_2;
+	}
+
+draw_state = def_draw_state (state);
+
+SCRIPT PAS_60
+
+	//extern float	block_state ();
+	//extern float	route_set ();
+	//extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	//extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	//extern float	enabled;
+	extern float	this_sig_mr ();
+	//float			next_state;
+	//float			next_state_dist;
+	//float			this_signal;
+
+if ( this_sig_mr( SIGFN_NORMAL ) ==# SIGASP_APPROACH_1 )
+	{ state = SIGASP_CLEAR_1; }
+else
+	{
+	state = SIGASP_CLEAR_2;
+	}
+
+draw_state = def_draw_state (state);
+
+SCRIPT PAS_60w
+
+	//extern float	block_state ();
+	//extern float	route_set ();
+	//extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	//extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	//extern float	enabled;
+	extern float	this_sig_mr ();
+	//float			next_state;
+	//float			next_state_dist;
+	//float			this_signal;
+
+if ( this_sig_mr( SIGFN_NORMAL ) ==# SIGASP_APPROACH_1 )
+	{ state = SIGASP_CLEAR_1; }
+else
+	{
+	state = SIGASP_CLEAR_2;
+	}
+
+draw_state = def_draw_state (state);
+
+SCRIPT PAS_60_L
+
+	//extern float	block_state ();
+	//extern float	route_set ();
+	//extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	//extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	//extern float	enabled;
+	extern float	this_sig_mr ();
+	//float			next_state;
+	//float			next_state_dist;
+	//float			this_signal;
+
+if ( this_sig_mr( SIGFN_NORMAL ) ==# SIGASP_APPROACH_1 )
+	{ state = SIGASP_CLEAR_1; }
+else
+	{
+	state = SIGASP_CLEAR_2;
+	}
+
+draw_state = def_draw_state (state);
+
+SCRIPT PAS_60_P
+
+	//extern float	block_state ();
+	//extern float	route_set ();
+	//extern float	next_sig_mr ();
+	extern float	def_draw_state ();
+	//extern float	sig_feature ();
+	extern float	state;
+	extern float	draw_state;
+	//extern float	enabled;
+	extern float	this_sig_mr ();
+	//float			next_state;
+	//float			next_state_dist;
+	//float			this_signal;
+
+if ( this_sig_mr( SIGFN_NORMAL ) ==# SIGASP_APPROACH_1 )
+	{ state = SIGASP_CLEAR_1; }
+else
+	{
+	state = SIGASP_CLEAR_2;
+	}
+
+draw_state = def_draw_state (state);

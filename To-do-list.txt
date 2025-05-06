@@ -1,0 +1,59 @@
+LISTA DO ZROBIENIA:
+-pozmieniaÊ wskaüniki (ca≥a linia)
+-nowa sygnalizacja (ca≥a linia)
+-naprawiÊ pÛ≥nocnπ g≥owicÍ GGO
+-dworce (ca≥a linia)
+-zabudowania (ca≥a linia)
+-dopasowaÊ liniÍ brzegowπ (pÛ≥wysep, Gdynia)
+-s≥upki hektometrowe
+-wrzuciÊ do carspawn.dat typowo polskie auta
+-zmiana nazw peronÛw i torÛw towarowych
+-dorzuciÊ s≥upy trakcyjne do refa
+-yard markery na kaødej stacji
+
+STACJA HEL
+-zabudowania w porcie rybackim i okolicy
+-zabudowania w porcie wojennym
+-cmentarz obok stacji
+-s≥upki na przejeüdzie
+-niefunkcyjne Tm
+-dworzec
+
+PRZYSTANEK JURATA:
+-dworzec
+-zabudowania
+-lasy
+
+STACJA JASTARNIA:
+-zabudowania
+-wskaüniki W11
+
+PRZYSTANEK J. WCZASY:
+-lasy
+-zabudowania
+
+STACJA KUèNICA:
+-zabudowania
+-linie przesy≥owe
+-wskaüniki W11
+
+PRZYSTANEK CHA£UPY:
+-morze i plaøe
+-zabudowania
+-kemping
+-lasy
+
+STACJA W£ADYS£AWOWO:
+-zabudowania miasta
+-zabudowania portu
+-wskaüniki W11
+
+
+ETAP 1: LINIA 213 NA ODC. W£ADYS£AWOWO-HEL
+ETAP 2: LINIA 213 NA ODC. REDA-W£ADYS£AWOWO
+ETAP 3a: LINIA 202 NA ODC. REDA-GDYNIA CISOWA
+ETAP 3b: LINIA 202 NA ODC. GDYNIA CISOWA-GDYNIA G£”WNA
+ETAP 3c: LINIA 202 NA ODC. GDYNIA G£”WNA-SOPOT
+ETAP 3d: LINIA 202 NA ODC. SOPOT-GDA—SK G£.
+ETAP 4: WEJHEROWO
+Opcjonalnie: dobudowanie linii do Nowego Portu i bocznic portowych w Gdyni
